@@ -18,7 +18,7 @@ public class Dataframe {
 
     public Dataframe() {
         columns = new ArrayList<>();
-        maxColumnSize=0;
+        maxColumnSize = 0;
     }
 
     public Dataframe(ArrayList<DataframeColumn> columns) {
@@ -27,6 +27,7 @@ public class Dataframe {
     }
 
     public Dataframe(String csvFilename) {
+        //TODO
     }
 
     public ArrayList<DataframeColumn> getColumns() {
@@ -35,6 +36,7 @@ public class Dataframe {
 
     public void setColumns(ArrayList<DataframeColumn> columns) {
         this.columns = columns;
+        maxColumnSizeEvaluation();
     }
 
     public void addColumn(DataframeColumn newcolumn) {
@@ -51,7 +53,7 @@ public class Dataframe {
         for (DataframeColumn column : columns) {
             //todo : prier pour que la valeur soit concatenable au string
             // prérequis : le contenu de datacolumn doit supporter tostring
-            if (column.getColumnContents().size() <= index) {
+            if (column.getColumnContents().size() < index) {
                 System.out.println(column.getLabel() + " : " + column.getColumnContents().get(index).toString());
             } else {
                 System.out.println(column.getLabel() + " : out of bounds");

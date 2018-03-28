@@ -27,6 +27,12 @@ public class DataframeColumn<E> {
         this.columnContents = new ArrayList<>();
     }
 
+    public DataframeColumn() {
+        this.Label = "";
+        this.columnContents = new ArrayList<>();
+        
+    }
+    
     public String getLabel() {
         return Label;
     }
