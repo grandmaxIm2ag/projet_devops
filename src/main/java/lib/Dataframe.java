@@ -13,11 +13,11 @@ import java.util.ArrayList;
  */
 public class Dataframe {
 
-    ArrayList<DataframeColumn> columns;
-    int maxColumnSize;
+    private ArrayList<DataframeColumn> columns;
+    private int maxColumnSize;
 
     /**
-     *  Base constructor
+     * Base constructor
      */
     public Dataframe() {
         columns = new ArrayList<>();
@@ -25,7 +25,8 @@ public class Dataframe {
     }
 
     /**
-     *  create a Dataframe with existing columns
+     * create a Dataframe with existing columns
+     *
      * @param columns the dataframe columns
      */
     public Dataframe(ArrayList<DataframeColumn> columns) {
@@ -34,7 +35,8 @@ public class Dataframe {
     }
 
     /**
-     *  Import the data columns and Data from a CSV file
+     * Import the data columns and Data from a CSV file
+     *
      * @param csvFilename the filename
      */
     public Dataframe(String csvFilename) {
@@ -42,7 +44,8 @@ public class Dataframe {
     }
 
     /**
-     *  Getter
+     * Getter
+     *
      * @return the arraylist containing the columns
      */
     public ArrayList<DataframeColumn> getColumns() {
@@ -50,7 +53,8 @@ public class Dataframe {
     }
 
     /**
-     *  Setter
+     * Setter
+     *
      * @param columns the arraylist to use
      */
     public void setColumns(ArrayList<DataframeColumn> columns) {
@@ -59,7 +63,8 @@ public class Dataframe {
     }
 
     /**
-     *  Append newcolumn to the dataframe
+     * Append newcolumn to the dataframe
+     *
      * @param newcolumn the new column
      */
     public void addColumn(DataframeColumn newcolumn) {
@@ -68,7 +73,8 @@ public class Dataframe {
     }
 
     /**
-     *  Add a newcolumn at index columnindex 
+     * Add a newcolumn at index columnindex
+     *
      * @param newcolumn the new dataframecolumn
      * @param columnindex the index of the column
      */
@@ -78,8 +84,9 @@ public class Dataframe {
     }
 
     /**
-     *  Print the values of the row at index 
-     * Need every column to have data that have the function toString()
+     * Print the values of the row at index Need every column to have data that
+     * have the function toString()
+     *
      * @param index the index of the row
      */
     public void printRow(int index) {
@@ -93,7 +100,8 @@ public class Dataframe {
     }
 
     /**
-     *  print the numberOfRow first rows
+     * print the numberOfRow first rows
+     *
      * @param numberOfRow the number of rows to print
      */
     public void printFirstRows(int numberOfRow) {
@@ -103,7 +111,7 @@ public class Dataframe {
     }
 
     /**
-     *  print the 5 first rows
+     * print the 5 first rows
      */
     public void printFirstRows() {
         for (int i = 0; i < 5; i++) {
@@ -112,28 +120,68 @@ public class Dataframe {
     }
 
     /**
-     *  print the last numberOfRow rows
+     * print the last numberOfRow rows
+     *
      * @param numberOfRow the number of rows to print
      */
     public void printLastRows(int numberOfRow) {
         for (int i = 0; i < numberOfRow; i++) {
-            printRow(this.maxColumnSize-i);
+            printRow(this.maxColumnSize - i);
         }
     }
 
     /**
-     *  print the last 5 rows
+     * print the last 5 rows
      */
     public void printLastRows() {
+        //TODO : check if not out of bounds ?
         for (int i = 0; i < 5; i++) {
-            printRow(this.maxColumnSize-i);
+            printRow(this.maxColumnSize - i);
         }
     }
+
+    /**
+     * print the rows of the whole dataframe
+     */
+    public void printAllRows() {
+        for (int i = 0; i < maxColumnSize; i++) {
+            printRow(i);
+        }
+    }
+
+    public Dataframe subDataframeFromRows(int[] indexes) {
+        Dataframe d = new Dataframe();
+
+        for (DataframeColumn column : columns) {
+            d.addColumn(new DataframeColumn(column.getLabel()));
+        }
+        for (int i = 0; i < indexes.length; i++) {
+            for (int j = 0; j < columns.size(); j++) {
+                d.getColumns().get(j).getColumnContents().add(this.getColumns().get(j).getColumnContents().get(indexes[i]));
+            }
+        }
+        return d;
+    }
+
+    public Dataframe subDataframeFromColumns(ArrayList<String> labels) {
+        Dataframe d = new Dataframe();
+
+        for (DataframeColumn column : columns) {
+            for (String label : labels) {
+                if (column.getLabel().equals(label)) {
+                    d.addColumn(column);
+                }
+            }
+        }
+        
+        return d;
+    }
+
     //Internal function that evaluate the size of the longest column
     private void maxColumnSizeEvaluation() {
         int max = 0;
-        for(DataframeColumn column : columns){
-            if(column.getColumnContents().size()>max){
+        for (DataframeColumn column : columns) {
+            if (column.getColumnContents().size() > max) {
                 max = column.getColumnContents().size();
             }
         }
