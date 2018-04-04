@@ -44,29 +44,30 @@ public class Dataframe {
      * Import the data columns and Data from a CSV file
      *
      * @param csvFilename the filename
+     * @throws java.io.IOException
      */
     public Dataframe(String csvFilename) throws IOException {
-        List<String>  lines = Files.readAllLines(Paths.get(csvFilename), Charset.defaultCharset());
+        List<String> lines = Files.readAllLines(Paths.get(csvFilename), Charset.defaultCharset());
         List<String> header = Arrays.asList(lines.get(0).split(","));
         lines.remove(0);
         this.maxColumnSize = header.size();
-        
-        ArrayList<ArrayList<String>> linetocol = new ArrayList<ArrayList<String>>();
-        
-        for (int i=0; i<maxColumnSize;i++){
-            linetocol.add(new ArrayList<String>());
+
+        ArrayList<ArrayList<String>> linetocol = new ArrayList<>();
+
+        for (int i = 0; i < maxColumnSize; i++) {
+            linetocol.add(new ArrayList<>());
         }
-        
-        for (String line : lines){
+
+        for (String line : lines) {
             String[] linez = line.split(",");
             System.out.println(Arrays.toString(linez));
-            for (int i = 0; i < maxColumnSize; i++){
+            for (int i = 0; i < maxColumnSize; i++) {
                 linetocol.get(i).add(linez[i]);
             }
         }
         this.columns = new ArrayList<>();
         for (int i = 0; i < maxColumnSize; i++) {
-            columns.add(new DataframeColumn(header.get(i),linetocol.get(i)));
+            columns.add(new DataframeColumn(header.get(i), linetocol.get(i)));
         }
     }
 
@@ -176,6 +177,12 @@ public class Dataframe {
         }
     }
 
+    /**
+     * Create a subdataframe that contain only the rows indicated by indexes
+     *
+     * @param indexes the indexes of the rows you want to extract
+     * @return a dataframe
+     */
     public Dataframe subDataframeFromRows(int[] indexes) {
         Dataframe d = new Dataframe();
 
@@ -190,6 +197,13 @@ public class Dataframe {
         return d;
     }
 
+    /**
+     * Create a subdataframe that contain only the column having a label present
+     * in labels
+     *
+     * @param labels the labels of the columns you want to extract
+     * @return a dataframe
+     */
     public Dataframe subDataframeFromColumns(ArrayList<String> labels) {
         Dataframe d = new Dataframe();
 
@@ -200,7 +214,7 @@ public class Dataframe {
                 }
             }
         }
-        
+
         return d;
     }
 
