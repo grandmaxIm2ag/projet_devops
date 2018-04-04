@@ -3,36 +3,68 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package test.java.lib;
+package lib;
 
 import java.util.ArrayList;
-import junit.framework.TestCase;
-import  main.java.lib.*;
-
+import main.java.lib.Dataframe;
+import main.java.lib.DataframeColumn;
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import static org.junit.Assert.*;
 
 /**
  *
- * @author marcof
+ * @author ducruyy
  */
-public class DataframeTest extends TestCase {
-    
-    public DataframeTest(String testName) {
-        super(testName);
+public class DataframeTest {
+
+    public DataframeTest() {
     }
-    
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+
+    @BeforeClass
+    public static void setUpClass() {
     }
-    
-    @Override
-    protected void tearDown() throws Exception {
-        super.tearDown();
+
+    @AfterClass
+    public static void tearDownClass() {
+    }
+
+    @Before
+    public void setUp() {
+    }
+
+    @After
+    public void tearDown() {
+    }
+
+    private Dataframe makeupDataframe() {
+        //create a dataframe with 2 columns and 3 rows. first column have only two rows.
+
+        String label1 = "column1";
+        ArrayList<Integer> col1 = new ArrayList<>();
+        col1.add(2);
+        col1.add(3);
+        DataframeColumn column1 = new DataframeColumn(label1, col1);
+        String label2 = "column2";
+        ArrayList<Integer> col2 = new ArrayList<>();
+        col2.add(1);
+        col2.add(4);
+        col2.add(5);
+        DataframeColumn column2 = new DataframeColumn(label2, col2);
+
+        Dataframe d = new Dataframe();
+        d.addColumn(column1);
+        d.addColumn(column2);
+        return d;
     }
 
     /**
      * Test of getColumns method, of class Dataframe.
      */
+    @Test
     public void testGetColumns() {
         System.out.println("getColumns");
         Dataframe instance = new Dataframe();
@@ -41,45 +73,105 @@ public class DataframeTest extends TestCase {
     }
 
     /**
+     * Test of getColumns method, of class Dataframe.
+     * With real values
+     */
+    @Test
+    public void testGetColumnsReal() {
+        System.out.println("getColumns");
+        Dataframe instance = makeupDataframe();
+        ArrayList<DataframeColumn> result = instance.getColumns();
+        assertEquals(2, result.size());
+    }
+
+    /**
      * Test of setColumns method, of class Dataframe.
      */
+    @Test
     public void testSetColumns() {
         System.out.println("setColumns");
         ArrayList<DataframeColumn> columns = new ArrayList<>();
         Dataframe instance = new Dataframe();
         instance.setColumns(columns);
-        assertEquals(instance.getColumns(),columns);
+    }
+
+    /**
+     * Test of setColumns method, of class Dataframe.
+     * With real values
+     */
+    @Test
+    public void testSetColumnsReal() {
+        System.out.println("setColumns");
+        Dataframe d = makeupDataframe();
+        ArrayList<DataframeColumn> columns = d.getColumns();
+        Dataframe instance = new Dataframe();
+        instance.setColumns(columns);
+        assertEquals(d.getColumns().size(),instance.getColumns().size());
     }
 
     /**
      * Test of addColumn method, of class Dataframe.
      */
-	
+    @Test
     public void testAddColumn_DataframeColumn() {
         System.out.println("addColumn");
-        DataframeColumn newcolumn = new DataframeColumn<Integer>("label");
+        DataframeColumn newcolumn = new DataframeColumn();
         Dataframe instance = new Dataframe();
         instance.addColumn(newcolumn);
-        assertEquals(instance.getColumns().get(instance.getColumns().size()-1),newcolumn);
+    }
+
+    /**
+     * Test of addColumn method, of class Dataframe.
+     * With a real value
+     */
+    @Test
+    public void testAddColumn_DataframeColumnReal() {
+        System.out.println("addColumn");
+        Dataframe d = makeupDataframe();
+        DataframeColumn newcolumn = d.getColumns().get(0);
+        Dataframe instance = new Dataframe();
+        instance.addColumn(newcolumn);
+        assertEquals(1,instance.getColumns().size());
+        //todo : maybe check content
     }
 
     /**
      * Test of addColumn method, of class Dataframe.
      */
+    @Test
     public void testAddColumn_DataframeColumn_int() {
         System.out.println("addColumn");
-        DataframeColumn newcolumn = new DataframeColumn<Integer>("label");
+        DataframeColumn newcolumn = new DataframeColumn();
         int columnindex = 0;
         Dataframe instance = new Dataframe();
-        instance.addColumn(newcolumn);
-        assertEquals(instance.getColumns().get(columnindex),newcolumn);
+        instance.addColumn(newcolumn, columnindex);
+    }
+
+    /**
+     * Test of addColumn method, of class Dataframe.
+     * With real values
+     */
+    @Test
+    public void testAddColumn_DataframeColumn_intReal() {
+        System.out.println("addColumn");
+        int columnindex = 0;
+        Dataframe d = makeupDataframe();
+        DataframeColumn newcolumn = d.getColumns().get(0);
+        DataframeColumn newcolumn2 = d.getColumns().get(1);
+        Dataframe instance = new Dataframe();
+        instance.addColumn(newcolumn,columnindex);
+        instance.addColumn(newcolumn2,columnindex);
+        assertEquals(2,instance.getColumns().size());
+        assertEquals(newcolumn2,instance.getColumns().get(0));
+        assertEquals(newcolumn,instance.getColumns().get(1));
+        //todo : maybe check content
     }
 
     /**
      * Test of printRow method, of class Dataframe.
      */
+    @Test
     public void testPrintRow() {
-        //not sure how to test this for real.
         System.out.println("printRow");
         int index = 0;
         Dataframe instance = new Dataframe();
@@ -89,6 +181,7 @@ public class DataframeTest extends TestCase {
     /**
      * Test of printFirstRows method, of class Dataframe.
      */
+    @Test
     public void testPrintFirstRows_int() {
         System.out.println("printFirstRows");
         int numberOfRow = 2;
@@ -99,6 +192,7 @@ public class DataframeTest extends TestCase {
     /**
      * Test of printFirstRows method, of class Dataframe.
      */
+    @Test
     public void testPrintFirstRows_0args() {
         System.out.println("printFirstRows");
         Dataframe instance = new Dataframe();
@@ -108,6 +202,7 @@ public class DataframeTest extends TestCase {
     /**
      * Test of printLastRows method, of class Dataframe.
      */
+    @Test
     public void testPrintLastRows_int() {
         System.out.println("printLastRows");
         int numberOfRow = 2;
@@ -118,10 +213,45 @@ public class DataframeTest extends TestCase {
     /**
      * Test of printLastRows method, of class Dataframe.
      */
+    @Test
     public void testPrintLastRows_0args() {
         System.out.println("printLastRows");
         Dataframe instance = new Dataframe();
         instance.printLastRows();
     }
-    
+
+    /**
+     * Test of printAllRows method, of class Dataframe.
+     */
+    @Test
+    public void testPrintAllRows() {
+        System.out.println("printAllRows");
+        Dataframe instance = new Dataframe();
+        instance.printAllRows();
+    }
+//TODO
+    /**
+     * Test of subDataframeFromRows method, of class Dataframe.
+     */
+    @Test
+    public void testSubDataframeFromRows() {
+        System.out.println("subDataframeFromRows");
+        int[] indexes = new int[0];
+        Dataframe instance = new Dataframe();
+        Dataframe result = instance.subDataframeFromRows(indexes);
+        assertEquals(0, result.getColumns().size());
+    }
+
+    /**
+     * Test of subDataframeFromColumns method, of class Dataframe.
+     */
+    @Test
+    public void testSubDataframeFromColumns() {
+        System.out.println("subDataframeFromColumns");
+        ArrayList<String> labels = new ArrayList<>();
+        Dataframe instance = new Dataframe();
+        Dataframe result = instance.subDataframeFromColumns(labels);
+        assertEquals(0, result.getColumns().size());
+    }
+
 }
