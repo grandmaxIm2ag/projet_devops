@@ -79,12 +79,11 @@ public class DataframeTest extends TestCase {
      * Test of printRow method, of class Dataframe.
      */
     public void testPrintRow() {
+        //not sure how to test this for real.
         System.out.println("printRow");
         int index = 0;
         Dataframe instance = new Dataframe();
         instance.printRow(index);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -92,11 +91,9 @@ public class DataframeTest extends TestCase {
      */
     public void testPrintFirstRows_int() {
         System.out.println("printFirstRows");
-        int numberOfRow = 0;
+        int numberOfRow = 2;
         Dataframe instance = new Dataframe();
         instance.printFirstRows(numberOfRow);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -106,8 +103,6 @@ public class DataframeTest extends TestCase {
         System.out.println("printFirstRows");
         Dataframe instance = new Dataframe();
         instance.printFirstRows();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -115,11 +110,9 @@ public class DataframeTest extends TestCase {
      */
     public void testPrintLastRows_int() {
         System.out.println("printLastRows");
-        int numberOfRow = 0;
+        int numberOfRow = 2;
         Dataframe instance = new Dataframe();
         instance.printLastRows(numberOfRow);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -129,8 +122,6 @@ public class DataframeTest extends TestCase {
         System.out.println("printLastRows");
         Dataframe instance = new Dataframe();
         instance.printLastRows();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
     
 }
