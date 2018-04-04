@@ -7,8 +7,9 @@ package test.java.lib;
 
 import java.util.ArrayList;
 import junit.framework.TestCase;
-import lib.Dataframe;
-import lib.DataframeColumn;
+import main.java.lib.Dataframe;
+import main.java.lib.DataframeColumn;
+
 
 /**
  *
