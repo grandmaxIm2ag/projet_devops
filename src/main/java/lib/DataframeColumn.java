@@ -14,12 +14,12 @@ import java.util.ArrayList;
  */
 public class DataframeColumn<E> {
 
-    
     private String Label;
     private ArrayList<E> columnContents;
-    
+
     /**
-     *  Create a dataframe column from a set of data and a label
+     * Create a dataframe column from a set of data and a label
+     *
      * @param Label the label of the column
      * @param columnContents the data set of the column
      */
@@ -29,7 +29,8 @@ public class DataframeColumn<E> {
     }
 
     /**
-     *  Create a dataframe column from an label and create an empty set
+     * Create a dataframe column from an label and create an empty set
+     *
      * @param Label the label of the column
      */
     public DataframeColumn(String Label) {
@@ -38,16 +39,17 @@ public class DataframeColumn<E> {
     }
 
     /**
-     *  Base constructor
+     * Base constructor
      */
     public DataframeColumn() {
         this.Label = "";
         this.columnContents = new ArrayList<>();
-        
+
     }
-    
+
     /**
-     *  Getter
+     * Getter
+     *
      * @return the label
      */
     public String getLabel() {
@@ -55,7 +57,8 @@ public class DataframeColumn<E> {
     }
 
     /**
-     *  Setter
+     * Setter
+     *
      * @param Label the new label
      */
     public void setLabel(String Label) {
@@ -63,7 +66,8 @@ public class DataframeColumn<E> {
     }
 
     /**
-     *  Getter
+     * Getter
+     *
      * @return the data set
      */
     public ArrayList<E> getColumnContents() {
@@ -71,11 +75,61 @@ public class DataframeColumn<E> {
     }
 
     /**
-     *  Setter
+     * Setter
+     *
      * @param columnContents the new data set
      */
     public void setColumnContents(ArrayList<E> columnContents) {
         this.columnContents = columnContents;
+    }
+
+    public double getMean() {
+        double Mean = 0.0;
+        try {
+            for (E elem : columnContents) {
+                Mean += Double.parseDouble((String) elem);
+            }
+
+            Mean /= columnContents.size();
+        } catch (NumberFormatException e) {
+            Mean = 0.0;
+        }
+
+        return Mean;
+    }
+
+    public double getMin() {
+        Double Min;
+        try {
+            Min = (Double) columnContents.get(0);
+
+            for (E elem : columnContents) {
+                if (Min > Double.parseDouble((String) elem)) {
+                    Min = Double.parseDouble((String) elem);
+                }
+            }
+        } catch (NumberFormatException e) {
+            Min = 0.0;
+        }
+
+        return Min;
+    }
+
+    public double getMax() {
+                Double Max;
+        try {
+            Max = (Double) columnContents.get(0);
+
+            for (E elem : columnContents) {
+                if (Max < Double.parseDouble((String) elem)) {
+                    Max = Double.parseDouble((String) elem);
+                }
+            }
+        } catch (NumberFormatException e) {
+            Max = 0.0;
+        }
+
+        return Max;
     }
 
 }
