@@ -7,8 +7,7 @@ package test.java.lib;
 
 import java.util.ArrayList;
 import junit.framework.TestCase;
-import main.java.lib.Dataframe;
-import main.java.lib.DataframeColumn;
+import  main.java.lib.*;
 
 
 /**
@@ -46,7 +45,7 @@ public class DataframeTest extends TestCase {
      */
     public void testSetColumns() {
         System.out.println("setColumns");
-        ArrayList<DataframeColumn> columns = null;
+        ArrayList<DataframeColumn> columns = new ArrayList<>();
         Dataframe instance = new Dataframe();
         instance.setColumns(columns);
         assertEquals(instance.getColumns(),columns);
@@ -55,12 +54,13 @@ public class DataframeTest extends TestCase {
     /**
      * Test of addColumn method, of class Dataframe.
      */
+	
     public void testAddColumn_DataframeColumn() {
         System.out.println("addColumn");
-        DataframeColumn newcolumn = null;
+        DataframeColumn newcolumn = new DataframeColumn<Integer>("label");
         Dataframe instance = new Dataframe();
         instance.addColumn(newcolumn);
-        assertEquals(instance.getColumns().get(instance.getColumns().size()-1),null);
+        assertEquals(instance.getColumns().get(instance.getColumns().size()-1),newcolumn);
     }
 
     /**
@@ -68,11 +68,11 @@ public class DataframeTest extends TestCase {
      */
     public void testAddColumn_DataframeColumn_int() {
         System.out.println("addColumn");
-        DataframeColumn newcolumn = null;
+        DataframeColumn newcolumn = new DataframeColumn<Integer>("label");
         int columnindex = 0;
         Dataframe instance = new Dataframe();
         instance.addColumn(newcolumn);
-        assertEquals(instance.getColumns().get(columnindex),null);
+        assertEquals(instance.getColumns().get(columnindex),newcolumn);
     }
 
     /**
