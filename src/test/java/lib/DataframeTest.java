@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package test.lib;
+package test.java.lib;
 
 import java.util.ArrayList;
 import junit.framework.TestCase;
