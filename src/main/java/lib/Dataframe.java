@@ -26,7 +26,7 @@ public class Dataframe {
 
     /**
      *  create a Dataframe with existing columns
-     * @param columns : the dataframe columns
+     * @param columns the dataframe columns
      */
     public Dataframe(ArrayList<DataframeColumn> columns) {
         this.columns = columns;
@@ -35,7 +35,7 @@ public class Dataframe {
 
     /**
      *  Import the data columns and Data from a CSV file
-     * @param csvFilename : the filename
+     * @param csvFilename the filename
      */
     public Dataframe(String csvFilename) {
         //TODO
@@ -51,7 +51,7 @@ public class Dataframe {
 
     /**
      *  Setter
-     * @param columns : the arraylist to use
+     * @param columns the arraylist to use
      */
     public void setColumns(ArrayList<DataframeColumn> columns) {
         this.columns = columns;
@@ -60,7 +60,7 @@ public class Dataframe {
 
     /**
      *  Append newcolumn to the dataframe
-     * @param newcolumn : the new column
+     * @param newcolumn the new column
      */
     public void addColumn(DataframeColumn newcolumn) {
         this.columns.add(newcolumn);
@@ -69,8 +69,8 @@ public class Dataframe {
 
     /**
      *  Add a newcolumn at index columnindex 
-     * @param newcolumn : the new dataframecolumn
-     * @param columnindex : the index of the column
+     * @param newcolumn the new dataframecolumn
+     * @param columnindex the index of the column
      */
     public void addColumn(DataframeColumn newcolumn, int columnindex) {
         this.columns.add(columnindex, newcolumn);
@@ -80,7 +80,7 @@ public class Dataframe {
     /**
      *  Print the values of the row at index 
      * Need every column to have data that have the function toString()
-     * @param index : the index of the row
+     * @param index the index of the row
      */
     public void printRow(int index) {
         for (DataframeColumn column : columns) {
@@ -94,7 +94,7 @@ public class Dataframe {
 
     /**
      *  print the numberOfRow first rows
-     * @param numberOfRow : the number of rows to print
+     * @param numberOfRow the number of rows to print
      */
     public void printFirstRows(int numberOfRow) {
         for (int i = 0; i < numberOfRow; i++) {
@@ -113,7 +113,7 @@ public class Dataframe {
 
     /**
      *  print the last numberOfRow rows
-     * @param numberOfRow : the number of rows to print
+     * @param numberOfRow the number of rows to print
      */
     public void printLastRows(int numberOfRow) {
         for (int i = 0; i < numberOfRow; i++) {
