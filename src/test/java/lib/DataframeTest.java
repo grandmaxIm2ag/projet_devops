@@ -37,11 +37,8 @@ public class DataframeTest extends TestCase {
     public void testGetColumns() {
         System.out.println("getColumns");
         Dataframe instance = new Dataframe();
-        ArrayList<DataframeColumn> expResult = null;
         ArrayList<DataframeColumn> result = instance.getColumns();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(0, result.size());
     }
 
     /**
@@ -52,8 +49,7 @@ public class DataframeTest extends TestCase {
         ArrayList<DataframeColumn> columns = null;
         Dataframe instance = new Dataframe();
         instance.setColumns(columns);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(instance.getColumns(),columns);
     }
 
     /**
@@ -64,8 +60,7 @@ public class DataframeTest extends TestCase {
         DataframeColumn newcolumn = null;
         Dataframe instance = new Dataframe();
         instance.addColumn(newcolumn);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(instance.getColumns().get(instance.getColumns().size()-1),null);
     }
 
     /**
@@ -76,9 +71,8 @@ public class DataframeTest extends TestCase {
         DataframeColumn newcolumn = null;
         int columnindex = 0;
         Dataframe instance = new Dataframe();
-        instance.addColumn(newcolumn, columnindex);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        instance.addColumn(newcolumn);
+        assertEquals(instance.getColumns().get(columnindex),null);
     }
 
     /**

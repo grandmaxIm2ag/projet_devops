@@ -8,7 +8,6 @@ package test.java.lib;
 import java.util.ArrayList;
 import junit.framework.TestCase;
 
-import main.java.lib.Dataframe;
 import main.java.lib.DataframeColumn;
 
 /**
@@ -40,7 +39,6 @@ public class DataframeColumnTest extends TestCase {
         String expResult = "";
         String result = instance.getLabel();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
     }
 
     /**
@@ -48,11 +46,10 @@ public class DataframeColumnTest extends TestCase {
      */
     public void testSetLabel() {
         System.out.println("setLabel");
-        String Label = "";
+        String Label = "Test";
         DataframeColumn instance = new DataframeColumn();
         instance.setLabel(Label);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
     }
 
     /**
@@ -61,11 +58,8 @@ public class DataframeColumnTest extends TestCase {
     public void testGetColumnContents() {
         System.out.println("getColumnContents");
         DataframeColumn instance = new DataframeColumn();
-        ArrayList expResult = null;
         ArrayList result = instance.getColumnContents();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(0, result.size());
     }
 
     /**
@@ -75,8 +69,6 @@ public class DataframeColumnTest extends TestCase {
         System.out.println("setColumnContents");
         DataframeColumn instance = new DataframeColumn();
         instance.setColumnContents(null);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
     
 }
