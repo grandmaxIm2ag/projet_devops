@@ -5,7 +5,13 @@
  */
 package main.java.lib;
 
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  *
@@ -39,8 +45,29 @@ public class Dataframe {
      *
      * @param csvFilename the filename
      */
-    public Dataframe(String csvFilename) {
-        //TODO
+    public Dataframe(String csvFilename) throws IOException {
+        List<String>  lines = Files.readAllLines(Paths.get(csvFilename), Charset.defaultCharset());
+        List<String> header = Arrays.asList(lines.get(0).split(","));
+        lines.remove(0);
+        this.maxColumnSize = header.size();
+        
+        ArrayList<ArrayList<String>> linetocol = new ArrayList<ArrayList<String>>();
+        
+        for (int i=0; i<maxColumnSize;i++){
+            linetocol.add(new ArrayList<String>());
+        }
+        
+        for (String line : lines){
+            String[] linez = line.split(",");
+            System.out.println(Arrays.toString(linez));
+            for (int i = 0; i < maxColumnSize; i++){
+                linetocol.get(i).add(linez[i]);
+            }
+        }
+        this.columns = new ArrayList<>();
+        for (int i = 0; i < maxColumnSize; i++) {
+            columns.add(new DataframeColumn(header.get(i),linetocol.get(i)));
+        }
     }
 
     /**
