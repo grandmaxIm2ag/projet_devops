@@ -1,3 +1,4 @@
+sonarqube-6.7.2/
 *~
 #
 # Project specific excludes
@@ -55,3 +56,4 @@ nb-configuration.xml
 release.properties
 pom.xml.releaseBackup
 pom.xml.tag
+

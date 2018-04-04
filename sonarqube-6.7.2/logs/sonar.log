@@ -1,0 +1,54 @@
+--> Wrapper Started as Daemon
+Launching a JVM...
+Wrapper (Version 3.2.3) http://wrapper.tanukisoftware.org
+  Copyright 1999-2006 Tanuki Software, Inc.  All Rights Reserved.
+
+
+WrapperSimpleApp: Encountered an error running main: org.sonar.process.MessageException: Unsupported JDBC driver provider: derby
+org.sonar.process.MessageException: Unsupported JDBC driver provider: derby
+<-- Wrapper Stopped
+--> Wrapper Started as Daemon
+Launching a JVM...
+Wrapper (Version 3.2.3) http://wrapper.tanukisoftware.org
+  Copyright 1999-2006 Tanuki Software, Inc.  All Rights Reserved.
+
+
+WrapperSimpleApp: Encountered an error running main: org.sonar.process.MessageException: Unsupported JDBC driver provider: derby
+org.sonar.process.MessageException: Unsupported JDBC driver provider: derby
+<-- Wrapper Stopped
+--> Wrapper Started as Daemon
+Launching a JVM...
+Wrapper (Version 3.2.3) http://wrapper.tanukisoftware.org
+  Copyright 1999-2006 Tanuki Software, Inc.  All Rights Reserved.
+
+
+WrapperSimpleApp: Encountered an error running main: org.sonar.process.MessageException: Unsupported JDBC driver provider: derby
+org.sonar.process.MessageException: Unsupported JDBC driver provider: derby
+<-- Wrapper Stopped
+--> Wrapper Started as Daemon
+Launching a JVM...
+Wrapper (Version 3.2.3) http://wrapper.tanukisoftware.org
+  Copyright 1999-2006 Tanuki Software, Inc.  All Rights Reserved.
+
+
+WrapperSimpleApp: Encountered an error running main: org.sonar.process.MessageException: Unsupported JDBC driver provider: derby
+org.sonar.process.MessageException: Unsupported JDBC driver provider: derby
+<-- Wrapper Stopped
+--> Wrapper Started as Console
+Launching a JVM...
+Wrapper (Version 3.2.3) http://wrapper.tanukisoftware.org
+  Copyright 1999-2006 Tanuki Software, Inc.  All Rights Reserved.
+
+
+WrapperSimpleApp: Encountered an error running main: org.sonar.process.MessageException: Unsupported JDBC driver provider: derby
+org.sonar.process.MessageException: Unsupported JDBC driver provider: derby
+<-- Wrapper Stopped
+--> Wrapper Started as Console
+Launching a JVM...
+Wrapper (Version 3.2.3) http://wrapper.tanukisoftware.org
+  Copyright 1999-2006 Tanuki Software, Inc.  All Rights Reserved.
+
+
+WrapperSimpleApp: Encountered an error running main: org.sonar.process.MessageException: Unsupported JDBC driver provider: derby
+org.sonar.process.MessageException: Unsupported JDBC driver provider: derby
+<-- Wrapper Stopped
