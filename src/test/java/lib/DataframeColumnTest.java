@@ -41,7 +41,6 @@ public class DataframeColumnTest extends TestCase {
         String result = instance.getLabel();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        pass("The test case is a prototype.");
     }
 
     /**
