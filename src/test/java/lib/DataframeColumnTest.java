@@ -225,5 +225,24 @@ public class DataframeColumnTest {
         
     }
     
-    
+    public void isnumber() {
+        DataframeColumn data = new DataframeColumn();
+        boolean st = data.isNumber ("5");
+         assertEquals(st,true);
+        boolean st3 = data.isNumber (2);
+         assertEquals(st3,true);
+        boolean st4 = data.isNumber (3.5);
+         assertEquals(st4,true);
+        boolean st5 = data.isNumber (Number.class);
+        assertEquals(st5,false);
+        boolean sf = data.isNumber ("aa");
+        assertEquals(sf,false);
+        boolean d = data.isNumber(0.1);
+        assertEquals(d,true);
+        boolean b = data.isNumber(true);
+        assertEquals(b,false);
+        
+        
+        
+    }
 }
