@@ -12,6 +12,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 /**
  *
@@ -227,6 +228,32 @@ public class Dataframe {
             }
         }
         this.maxColumnSize = max;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 79 * hash + Objects.hashCode(this.columns);
+        hash = 79 * hash + this.maxColumnSize;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Dataframe other = (Dataframe) obj;
+        if (!Objects.equals(this.columns, other.columns)) {
+            return false;
+        }
+        if (this.maxColumnSize != other.maxColumnSize) {
+            return false;
+        }
+        return true;
     }
 
 }

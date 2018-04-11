@@ -5,6 +5,7 @@
  */
 package lib;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import main.java.lib.Dataframe;
 import main.java.lib.DataframeColumn;
@@ -73,8 +74,7 @@ public class DataframeTest {
     }
 
     /**
-     * Test of getColumns method, of class Dataframe.
-     * With real values
+     * Test of getColumns method, of class Dataframe. With real values
      */
     @Test
     public void testGetColumnsReal() {
@@ -85,19 +85,7 @@ public class DataframeTest {
     }
 
     /**
-     * Test of setColumns method, of class Dataframe.
-     */
-    @Test
-    public void testSetColumns() {
-        System.out.println("setColumns");
-        ArrayList<DataframeColumn> columns = new ArrayList<>();
-        Dataframe instance = new Dataframe();
-        instance.setColumns(columns);
-    }
-
-    /**
-     * Test of setColumns method, of class Dataframe.
-     * With real values
+     * Test of setColumns method, of class Dataframe. With real values
      */
     @Test
     public void testSetColumnsReal() {
@@ -106,7 +94,8 @@ public class DataframeTest {
         ArrayList<DataframeColumn> columns = d.getColumns();
         Dataframe instance = new Dataframe();
         instance.setColumns(columns);
-        assertEquals(d.getColumns().size(),instance.getColumns().size());
+        assertEquals(d.getColumns().size(), instance.getColumns().size());
+        assert(d.equals(instance));
     }
 
     /**
@@ -118,11 +107,11 @@ public class DataframeTest {
         DataframeColumn newcolumn = new DataframeColumn();
         Dataframe instance = new Dataframe();
         instance.addColumn(newcolumn);
+        assertEquals(1, instance.getColumns().size());
     }
 
     /**
-     * Test of addColumn method, of class Dataframe.
-     * With a real value
+     * Test of addColumn method, of class Dataframe. With a real value
      */
     @Test
     public void testAddColumn_DataframeColumnReal() {
@@ -131,8 +120,8 @@ public class DataframeTest {
         DataframeColumn newcolumn = d.getColumns().get(0);
         Dataframe instance = new Dataframe();
         instance.addColumn(newcolumn);
-        assertEquals(1,instance.getColumns().size());
-        //todo : maybe check content
+        assertEquals(1, instance.getColumns().size());
+        assert(instance.getColumns().get(0).equals(newcolumn));
     }
 
     /**
@@ -145,11 +134,11 @@ public class DataframeTest {
         int columnindex = 0;
         Dataframe instance = new Dataframe();
         instance.addColumn(newcolumn, columnindex);
+        assert(instance.getColumns().get(columnindex).equals(newcolumn));
     }
 
     /**
-     * Test of addColumn method, of class Dataframe.
-     * With real values
+     * Test of addColumn method, of class Dataframe. With real values
      */
     @Test
     public void testAddColumn_DataframeColumn_intReal() {
@@ -159,11 +148,11 @@ public class DataframeTest {
         DataframeColumn newcolumn = d.getColumns().get(0);
         DataframeColumn newcolumn2 = d.getColumns().get(1);
         Dataframe instance = new Dataframe();
-        instance.addColumn(newcolumn,columnindex);
-        instance.addColumn(newcolumn2,columnindex);
-        assertEquals(2,instance.getColumns().size());
-        assertEquals(newcolumn2,instance.getColumns().get(0));
-        assertEquals(newcolumn,instance.getColumns().get(1));
+        instance.addColumn(newcolumn, columnindex);
+        instance.addColumn(newcolumn2, columnindex);
+        assertEquals(2, instance.getColumns().size());
+        assertEquals(newcolumn2, instance.getColumns().get(0));
+        assertEquals(newcolumn, instance.getColumns().get(1));
         //todo : maybe check content
     }
 
@@ -229,7 +218,7 @@ public class DataframeTest {
         Dataframe instance = new Dataframe();
         instance.printAllRows();
     }
-//TODO
+
     /**
      * Test of subDataframeFromRows method, of class Dataframe.
      */
@@ -252,6 +241,46 @@ public class DataframeTest {
         Dataframe instance = new Dataframe();
         Dataframe result = instance.subDataframeFromColumns(labels);
         assertEquals(0, result.getColumns().size());
+    }
+
+    /**
+     * Test of subDataframeFromColumns method, of class Dataframe.
+     */
+    @Test
+    public void testConstructor() {
+        Dataframe instance = new Dataframe();
+        Dataframe instance2 = new Dataframe();
+
+        assert (instance.equals(instance2));
+    }
+
+    /**
+     * Test of subDataframeFromColumns method, of class Dataframe.
+     */
+    @Test
+    public void testConstructor2() {
+        String pathtocsv = "/home/d/ducruyy/DevOps/projet_devops/csvtest/small.csv";
+        try {
+            Dataframe instance = new Dataframe(pathtocsv);
+            Dataframe instance2 = new Dataframe(pathtocsv);
+            assert (instance != null);
+            assert (instance.equals(instance2));
+        } catch (IOException ex) {
+            fail("Exception got thrown, so test can't be asserted => " + ex.getMessage() + ex.getLocalizedMessage());
+        }
+
+    }
+
+    /**
+     * Test of subDataframeFromColumns method, of class Dataframe.
+     */
+    @Test
+    public void testConstructor3() {
+        Dataframe instance = makeupDataframe();
+        Dataframe instance2 = makeupDataframe();
+
+        assert (instance.equals(instance2));
+
     }
 
 }
