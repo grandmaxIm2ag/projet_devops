@@ -119,6 +119,9 @@ public class Dataframe {
      * @param index the index of the row
      */
     public void printRow(int index) {
+        if(index<0 || index>maxColumnSize){
+            return;
+        }
         for (DataframeColumn column : columns) {
             if (column.getColumnContents().size() < index) {
                 System.out.println(column.getLabel() + " : " + column.getColumnContents().get(index).toString());

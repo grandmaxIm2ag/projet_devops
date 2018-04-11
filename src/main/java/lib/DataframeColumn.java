@@ -13,7 +13,7 @@ import exceptions.NotNumberColumnException;
 
 /**
  *
- * @author marcof
+ * @author Ducruy Yann,Marco Florian,Grand Maxence
  * @param <E> The type of the column
  */
 public class DataframeColumn<E> {
@@ -87,6 +87,11 @@ public class DataframeColumn<E> {
         this.columnContents = columnContents;
     }
 
+    /**
+     * Calculate mean of a column
+     * @return double of column's mean
+     * @throws NotNumberColumnException
+     */
     public double getMean() throws NotNumberColumnException {
         double Mean = 0.0;
         try {
@@ -106,6 +111,11 @@ public class DataframeColumn<E> {
         return Mean;
     }
 
+    /**
+     * Get minimum value of a column
+     * @return Minimum element of column
+     * @throws ParseException
+     */
     public Number getMin() throws ParseException {
         Number Min;
         try {
@@ -123,6 +133,11 @@ public class DataframeColumn<E> {
         return Min;
     }
 
+    /**
+     * Get Maximum Value of Column
+     * @return Maximum element of column
+     * @throws ParseException
+     */
     public Number getMax() throws ParseException {
         Number Max;
         try {
@@ -140,6 +155,11 @@ public class DataframeColumn<E> {
         return Max;
     }
 
+    /**
+     * Boolean that test if an element of a Dataframe is a number
+     * @param elem dataframe element
+     * @return True if the element is a number, False if the element is not.
+     */
     public boolean isNumber(E elem) {
         Class c = elem.getClass();
         if (Number.class.isAssignableFrom(c)) {
@@ -158,6 +178,12 @@ public class DataframeColumn<E> {
         return false;
     }
 
+    /**
+     * Function that tests if an element is a number and return it
+     * @param elem dataframe element
+     * @return value of the number
+     * @throws ParseException if the element is not a number
+     */
     public Number getNumber(E elem) throws ParseException {
         if (isNumber(elem)) {
             if (elem instanceof String) {
@@ -171,6 +197,11 @@ public class DataframeColumn<E> {
         }
     }
 
+    /**
+     * Function that tests if all elements of a column are a number 
+     * @param col a column
+     * @return True if all elements are numbers, False otherwise
+     */
     public boolean isColumnNumber(ArrayList<E> col) {
         for (E elem : col) {
             if (!isNumber(elem)) {

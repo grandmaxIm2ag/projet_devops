@@ -95,7 +95,7 @@ public class DataframeTest {
         Dataframe instance = new Dataframe();
         instance.setColumns(columns);
         assertEquals(d.getColumns().size(), instance.getColumns().size());
-        assert(d.equals(instance));
+        assert (d.equals(instance));
     }
 
     /**
@@ -121,7 +121,7 @@ public class DataframeTest {
         Dataframe instance = new Dataframe();
         instance.addColumn(newcolumn);
         assertEquals(1, instance.getColumns().size());
-        assert(instance.getColumns().get(0).equals(newcolumn));
+        assert (instance.getColumns().get(0).equals(newcolumn));
     }
 
     /**
@@ -134,7 +134,7 @@ public class DataframeTest {
         int columnindex = 0;
         Dataframe instance = new Dataframe();
         instance.addColumn(newcolumn, columnindex);
-        assert(instance.getColumns().get(columnindex).equals(newcolumn));
+        assert (instance.getColumns().get(columnindex).equals(newcolumn));
     }
 
     /**
@@ -164,6 +164,47 @@ public class DataframeTest {
         System.out.println("printRow");
         int index = 0;
         Dataframe instance = new Dataframe();
+        instance.printRow(index);
+    }
+    /**
+     * Test of printRow method, of class Dataframe.
+     */
+    @Test
+    public void testPrintRowReal() {
+        System.out.println("printRow");
+        int index = 0;
+        Dataframe instance = makeupDataframe();
+        instance.printRow(index);
+    }
+    /**
+     * Test of printRow method, of class Dataframe.
+     */
+    @Test
+    public void testPrintRowReal2() {
+        System.out.println("printRow");
+        Dataframe instance = makeupDataframe();
+        instance.printRow(0);
+        instance.printRow(1);
+        instance.printRow(2);
+    }
+    /**
+     * Test of printRow method, of class Dataframe.
+     */
+    @Test
+    public void testPrintRowLessZero() {
+        System.out.println("printRow");
+        int index = -1;
+        Dataframe instance = makeupDataframe();
+        instance.printRow(index);
+    }
+    /**
+     * Test of printRow method, of class Dataframe.
+     */
+    @Test
+    public void testPrintMoreThanMax() {
+        System.out.println("printRow");
+        int index = 8;
+        Dataframe instance = makeupDataframe();
         instance.printRow(index);
     }
 
@@ -218,6 +259,15 @@ public class DataframeTest {
         Dataframe instance = new Dataframe();
         instance.printAllRows();
     }
+    /**
+     * Test of printAllRows method, of class Dataframe.
+     */
+    @Test
+    public void testPrintAllRowsReal() {
+        System.out.println("printAllRows");
+        Dataframe instance = makeupDataframe();
+        instance.printAllRows();
+    }
 
     /**
      * Test of subDataframeFromRows method, of class Dataframe.
@@ -230,6 +280,18 @@ public class DataframeTest {
         Dataframe result = instance.subDataframeFromRows(indexes);
         assertEquals(0, result.getColumns().size());
     }
+    /**
+     * Test of subDataframeFromRows method, of class Dataframe.
+     */
+    @Test
+    public void testSubDataframeFromRowsReal() {
+        System.out.println("subDataframeFromRows");
+        int[] indexes = new int[1];
+        indexes[0]=1;
+        Dataframe instance = makeupDataframe();
+        Dataframe result = instance.subDataframeFromRows(indexes);
+        assertEquals(2, result.getColumns().size());
+    }
 
     /**
      * Test of subDataframeFromColumns method, of class Dataframe.
@@ -241,6 +303,18 @@ public class DataframeTest {
         Dataframe instance = new Dataframe();
         Dataframe result = instance.subDataframeFromColumns(labels);
         assertEquals(0, result.getColumns().size());
+    }
+    /**
+     * Test of subDataframeFromColumns method, of class Dataframe.
+     */
+    @Test
+    public void testSubDataframeFromColumnsReal() {
+        System.out.println("subDataframeFromColumns");
+        ArrayList<String> labels = new ArrayList<>();
+        labels.add("column1");
+        Dataframe instance = makeupDataframe();
+        Dataframe result = instance.subDataframeFromColumns(labels);
+        assertEquals(1, result.getColumns().size());
     }
 
     /**
@@ -280,6 +354,29 @@ public class DataframeTest {
         Dataframe instance2 = makeupDataframe();
 
         assert (instance.equals(instance2));
+
+    }
+    /**
+     * Test of subDataframeFromColumns method, of class Dataframe.
+     */
+    @Test
+    public void testConstructor4() {
+        ArrayList<DataframeColumn> array = new ArrayList<>();
+        Dataframe instance = new Dataframe(array);
+
+        assertEquals(instance.getColumns().size(),0);
+
+    }
+
+    /**
+     * Test of subDataframeFromColumns method, of class Dataframe.
+     */
+    @Test
+    public void testCHashCode() {
+        Dataframe instance = makeupDataframe();
+        int hash = instance.hashCode();
+
+        assertEquals(hash,instance.hashCode());
 
     }
 
