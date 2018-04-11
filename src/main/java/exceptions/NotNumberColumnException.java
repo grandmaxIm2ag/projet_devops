@@ -1,4 +1,4 @@
-package main.java.exceptions;
+package exceptions;
 
 public class NotNumberColumnException extends Exception{
 	public NotNumberColumnException(String message) {
