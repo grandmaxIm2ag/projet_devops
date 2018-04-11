@@ -1,11 +1,25 @@
 package exceptions;
 
+/**
+ * Exception Handling for Column without Numbers in it.
+ * @author Ducruy Yann,Marco Florian,Grand Maxence
+ */
 public class NotNumberColumnException extends Exception{
-	public NotNumberColumnException(String message) {
+
+    /**
+     * Exception for column without numbers
+     * @param message String of error message
+     */
+    public NotNumberColumnException(String message) {
 		super(message);
 	}
 
-	public NotNumberColumnException(String message, Throwable throwable) {
+    /**
+     *
+     * @param message String of error message
+     * @param throwable Error to throw
+     */
+    public NotNumberColumnException(String message, Throwable throwable) {
 		super(message, throwable);
 	}
 }

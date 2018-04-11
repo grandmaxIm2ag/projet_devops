@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package lib;
+package test;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import main.java.lib.Dataframe;
-import main.java.lib.DataframeColumn;
+import lib.Dataframe;
+import lib.DataframeColumn;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
