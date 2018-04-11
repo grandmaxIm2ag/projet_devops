@@ -95,7 +95,7 @@ public class DataframeTest {
         Dataframe instance = new Dataframe();
         instance.setColumns(columns);
         assertEquals(d.getColumns().size(), instance.getColumns().size());
-        assert(d.equals(instance));
+        assert (d.equals(instance));
     }
 
     /**
@@ -121,7 +121,7 @@ public class DataframeTest {
         Dataframe instance = new Dataframe();
         instance.addColumn(newcolumn);
         assertEquals(1, instance.getColumns().size());
-        assert(instance.getColumns().get(0).equals(newcolumn));
+        assert (instance.getColumns().get(0).equals(newcolumn));
     }
 
     /**
@@ -134,7 +134,7 @@ public class DataframeTest {
         int columnindex = 0;
         Dataframe instance = new Dataframe();
         instance.addColumn(newcolumn, columnindex);
-        assert(instance.getColumns().get(columnindex).equals(newcolumn));
+        assert (instance.getColumns().get(columnindex).equals(newcolumn));
     }
 
     /**
