@@ -51,14 +51,18 @@ Exemple :
 
 ## Choix d'outils
 Java 8
+
 Junit 4.12 pour les tests unitaires
+
 Maven pour la compilation et la gestion du projet
+
 Travis CI pour l'intégration continue
 
 
 ## Feedback
 
 Des difficultés d'apprentissage avec Maven, la documentation est parfois difficile à comprendre.
+
 Niveau développement, le code demandé n'est ni trop court, ni trop long, ce qui permet de faire du développement et des tests tout au long du projet sans être surchargé de travail.
 
 
