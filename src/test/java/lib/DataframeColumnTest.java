@@ -150,7 +150,7 @@ public class DataframeColumnTest {
 		double min, tmp;
 		Random r = new Random();
 		min = r.nextDouble();
-		int len = r.nextInt() % 100 +1;
+		int len = Math.abs(r.nextInt() % 100 +1);
 		l.add(min);
 		for(int i=0; i<len; i++){
 			tmp = r.nextDouble()*100;
@@ -171,7 +171,7 @@ public class DataframeColumnTest {
 		double max, tmp;
 		Random r = new Random();
 		max = r.nextDouble();
-		int len = r.nextInt() % 100 +1;
+		int len = Math.abs(r.nextInt() % 100 +1);
 		l.add(max);
 		for(int i=0; i<len; i++){
 			tmp = r.nextDouble()*100;
@@ -192,7 +192,7 @@ public class DataframeColumnTest {
 		double mean, tmp, sum;
 		Random r = new Random();
 		sum = 0;
-		int len = r.nextInt()%100 +1;
+		int len = Math.abs(r.nextInt()%100 +1);
 		for(int i=0; i<len; i++){
 			tmp = r.nextDouble()*100;
 			sum += tmp;
