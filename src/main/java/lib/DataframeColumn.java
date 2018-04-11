@@ -5,6 +5,8 @@
  */
 package main.java.lib;
 
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
 
 /**
@@ -87,7 +89,11 @@ public class DataframeColumn<E> {
         double Mean = 0.0;
         try {
             for (E elem : columnContents) {
-                Mean += Double.parseDouble((String) elem);
+                try {
+                Mean += (double) getNumber(elem);}
+                catch (ParseException e) {
+                return 0.0;
+                }
             }
 
             Mean /= columnContents.size();
@@ -98,14 +104,14 @@ public class DataframeColumn<E> {
         return Mean;
     }
 
-    public double getMin() {
-        Double Min;
+    public Number getMin() throws ParseException {
+        Number Min;
         try {
-            Min = (Double) columnContents.get(0);
+            Min = getNumber(columnContents.get(0));
 
             for (E elem : columnContents) {
-                if (Min > Double.parseDouble((String) elem)) {
-                    Min = Double.parseDouble((String) elem);
+                if (Min.doubleValue() > getNumber(elem).doubleValue()) {
+                    Min = getNumber(elem);
                 }
             }
         } catch (NumberFormatException e) {
@@ -115,14 +121,14 @@ public class DataframeColumn<E> {
         return Min;
     }
 
-    public double getMax() {
-                Double Max;
+    public Number getMax() throws ParseException {
+        Number Max;
         try {
-            Max = (Double) columnContents.get(0);
+            Max = getNumber( columnContents.get(0));
 
             for (E elem : columnContents) {
-                if (Max < Double.parseDouble((String) elem)) {
-                    Max = Double.parseDouble((String) elem);
+                if (Max.doubleValue() < getNumber( elem).doubleValue()) {
+                    Max = getNumber( elem);
                 }
             }
         } catch (NumberFormatException e) {
@@ -132,4 +138,45 @@ public class DataframeColumn<E> {
         return Max;
     }
 
+    public boolean isNumber(E elem) {
+        Class c = elem.getClass();
+        if (Number.class.isAssignableFrom(c)) {
+            return true;
+        }
+        if (elem instanceof String) {
+            NumberFormat nf = NumberFormat.getInstance();
+            try {
+                nf.parse((String) elem).getClass().getName();
+            } catch (ParseException e) {
+                return false;
+            }
+            return true;
+            
+        }
+        return false;
+    }
+    
+    public Number getNumber(E elem) throws ParseException{
+        if (isNumber(elem)) {
+            if (elem instanceof String) {
+                Number num = NumberFormat.getInstance().parse((String) elem);
+                return num;
+            }
+            else {
+                return (Number) elem;
+            }
+        }
+        else {
+            throw new ParseException("NaN",0);
+        }
+    }
+    
+    public boolean isColumnNumber(ArrayList<E> col) {
+        for (E elem : col) {
+            if (!isNumber(elem)) {
+                return false;
+            }
+        }
+        return true;
+    }
 }
