@@ -9,6 +9,7 @@ import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Objects;
+import main.java.exceptions.NotNumberColumnException;
 
 /**
  *
@@ -86,14 +87,14 @@ public class DataframeColumn<E> {
         this.columnContents = columnContents;
     }
 
-    public double getMean() {
+    public double getMean() throws NotNumberColumnException {
         double Mean = 0.0;
         try {
             for (E elem : columnContents) {
                 try {
-                Mean += (double) getNumber(elem);}
-                catch (ParseException e) {
-                return 0.0;
+                    Mean += (double) getNumber(elem);
+                } catch (ParseException e) {
+                    throw new NotNumberColumnException("NaN Mean");
                 }
             }
 
@@ -125,11 +126,11 @@ public class DataframeColumn<E> {
     public Number getMax() throws ParseException {
         Number Max;
         try {
-            Max = getNumber( columnContents.get(0));
+            Max = getNumber(columnContents.get(0));
 
             for (E elem : columnContents) {
-                if (Max.doubleValue() < getNumber( elem).doubleValue()) {
-                    Max = getNumber( elem);
+                if (Max.doubleValue() < getNumber(elem).doubleValue()) {
+                    Max = getNumber(elem);
                 }
             }
         } catch (NumberFormatException e) {
@@ -138,6 +139,7 @@ public class DataframeColumn<E> {
 
         return Max;
     }
+
     public boolean isNumber(E elem) {
         Class c = elem.getClass();
         if (Number.class.isAssignableFrom(c)) {
@@ -151,26 +153,24 @@ public class DataframeColumn<E> {
                 return false;
             }
             return true;
-            
+
         }
         return false;
     }
-    
-    public Number getNumber(E elem) throws ParseException{
+
+    public Number getNumber(E elem) throws ParseException {
         if (isNumber(elem)) {
             if (elem instanceof String) {
                 Number num = NumberFormat.getInstance().parse((String) elem);
                 return num;
-            }
-            else {
+            } else {
                 return (Number) elem;
             }
-        }
-        else {
-            throw new ParseException("NaN",0);
+        } else {
+            throw new ParseException("NaN", 0);
         }
     }
-    
+
     public boolean isColumnNumber(ArrayList<E> col) {
         for (E elem : col) {
             if (!isNumber(elem)) {
@@ -179,6 +179,7 @@ public class DataframeColumn<E> {
         }
         return true;
     }
+
     @Override
     public int hashCode() {
         int hash = 7;
@@ -204,5 +205,5 @@ public class DataframeColumn<E> {
         }
         return true;
     }
-    
+
 }
