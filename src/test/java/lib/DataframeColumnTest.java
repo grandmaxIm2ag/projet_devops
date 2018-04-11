@@ -206,4 +206,24 @@ public class DataframeColumnTest {
         assertEquals(mean, df.getMean(), 0.001);
     }
 
+    
+    public void hashtest() {
+        DataframeColumn instance = new DataframeColumn();
+        DataframeColumn makeup = makeupColumn();
+        instance.setColumnContents(makeup.getColumnContents());
+        int a = instance.hashCode();
+        int b = instance.hashCode();
+        assertEquals(a,b);
+    }
+    
+    public void equaltest() {
+        DataframeColumn instance = new DataframeColumn();
+        DataframeColumn makeup = makeupColumn();
+        instance.setColumnContents(makeup.getColumnContents());
+        boolean a = instance.equals(instance);
+        assertEquals(a,true);
+        
+    }
+    
+    
 }
