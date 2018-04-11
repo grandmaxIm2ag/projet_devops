@@ -6,6 +6,7 @@
 package main.java.lib;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  *
@@ -131,5 +132,33 @@ public class DataframeColumn<E> {
 
         return Max;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 43 * hash + Objects.hashCode(this.Label);
+        hash = 43 * hash + Objects.hashCode(this.columnContents);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final DataframeColumn<?> other = (DataframeColumn<?>) obj;
+        if (!Objects.equals(this.Label, other.Label)) {
+            return false;
+        }
+        if (!Objects.equals(this.columnContents, other.columnContents)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 
 }
