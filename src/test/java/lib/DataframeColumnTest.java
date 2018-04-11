@@ -7,12 +7,15 @@ package lib;
 
 import java.util.ArrayList;
 import main.java.lib.DataframeColumn;
+import main.java.exceptions.EmptyException;
+import main.java.exceptions.NotNumberColumnException;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import java.util.Random;
 
 /**
  *
@@ -70,17 +73,6 @@ public class DataframeColumnTest {
         String expResult = "label1";
         String result = instance.getLabel();
         assertEquals(expResult, result);
-    }
-
-    /**
-     * Test of setLabel method, of class DataframeColumn.
-     */
-    @Test
-    public void testSetLabel() {
-        System.out.println("setLabel");
-        String Label = "1";
-        DataframeColumn instance = new DataframeColumn();
-        instance.setLabel(Label);
     }
 
     /**
@@ -149,5 +141,127 @@ public class DataframeColumnTest {
             assertEquals(makeup.getColumnContents().get(i), instance.getColumnContents().get(i));
         }
     }
+
+	/**
+	 * Test of getMin with correct data
+	 */
+    @Test
+    public void testMinValue() {
+		ArrayList<Double> l = new ArrayList<Double>();
+		double min, tmp;
+		Random r = new Random();
+		min = r.nextDouble();
+		int len = r.nextInt();
+		l.add(min);
+		for(int i=0; i<len; i++){
+			tmp = r.nextDouble();
+			if(tmp < min)
+				min = tmp;
+			l.add(tmp);
+		}
+		DataframeColumn<Double> df = new DataframeColumn<Double>("test", l);
+		assertEquals(min, df.getMin());
+    }
+
+	/**
+	 * Test of getMin with empty column
+	 */
+    @Test(expected=EmptyException.class)
+    public void testMinValueEmpty() {
+		ArrayList<Double> l = new ArrayList<Double>();
+		DataframeColumn<Double> df = new DataframeColumn<Double>("test", l);
+		df.getMin();
+	}
+
+	/**
+	 * Test of getMin with incorrect data
+	 */
+    @Test(expected=NotNumberColumnException.class)
+    public void testMinValueString() {
+		ArrayList<String> l = new ArrayList<String>();
+		DataframeColumn<String> df = new DataframeColumn<String>("test", l);
+		df.getMin();
+	}
+
+	/**
+	 * Test of getMax with correct data
+	 */
+	@Test
+    public void testMaxValue() {
+		ArrayList<Double> l = new ArrayList<Double>();
+		double max, tmp;
+		Random r = new Random();
+		max = r.nextDouble();
+		int len = r.nextInt();
+		l.add(max);
+		for(int i=0; i<len; i++){
+			tmp = r.nextDouble();
+			if(tmp > max)
+				max = tmp;
+			l.add(tmp);
+		}
+		DataframeColumn<Double> df = new DataframeColumn<Double>("test", l);
+		assertEquals(max, df.getMax());
+    }
+
+	/**
+	 * Test of getMin with empty column
+	 */
+    @Test(expected=EmptyException.class)
+    public void testMaxValueEmpty() {
+		ArrayList<Double> l = new ArrayList<Double>();
+		DataframeColumn<Double> df = new DataframeColumn<Double>("test", l);
+		df.getMax();
+	}
+
+	/**
+	 * Test of getMin with incorrect data
+	 */
+    @Test(expected=NotNumberColumnException.class)
+    public void testMaxValueString() {
+		ArrayList<String> l = new ArrayList<String>();
+		DataframeColumn<String> df = new DataframeColumn<String>("test", l);
+		df.getMax();
+	}
+	
+	/**
+	 * Test of getMean with correct data
+	 */
+	@Test
+    public void testMeanValue() {
+		ArrayList<Double> l = new ArrayList<Double>();
+		double mean, tmp, sum;
+		Random r = new Random();
+		sum = 0;
+		int len = r.nextInt()+1;
+		for(int i=0; i<len; i++){
+			tmp = r.nextDouble();
+			sum += tmp;
+			l.add(tmp);
+		}
+		mean = (double) sum / len;
+		DataframeColumn<Double> df = new DataframeColumn<Double>("test", l);
+		assertEquals(mean, df.getMean());
+    }
+
+	/**
+	 * Test of getMin with empty column
+	 */
+    @Test(expected=EmptyException.class)
+    public void testMeanValueEmpty() {
+		ArrayList<Double> l = new ArrayList<Double>();
+		DataframeColumn<Double> df = new DataframeColumn<Double>("test", l);
+		df.getMean();
+	}
+
+	/**
+	 * Test of getMin with incorrect data
+	 */
+    @Test(expected=NotNumberColumnException.class)
+    public void testMeanValueString() {
+		ArrayList<String> l = new ArrayList<String>();
+		DataframeColumn<String> df = new DataframeColumn<String>("test", l);
+		df.getMean();
+	}
 
 }
