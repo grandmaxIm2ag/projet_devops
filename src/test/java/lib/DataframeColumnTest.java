@@ -153,7 +153,7 @@ public class DataframeColumnTest {
 		int len = r.nextInt() % 100 +1;
 		l.add(min);
 		for(int i=0; i<len; i++){
-			tmp = r.nextDouble();
+			tmp = r.nextDouble()*100;
 			if(tmp < min)
 				min = tmp;
 			l.add(tmp);
@@ -174,7 +174,7 @@ public class DataframeColumnTest {
 		int len = r.nextInt() % 100 +1;
 		l.add(max);
 		for(int i=0; i<len; i++){
-			tmp = r.nextDouble();
+			tmp = r.nextDouble()*100;
 			if(tmp > max)
 				max = tmp;
 			l.add(tmp);
@@ -194,7 +194,7 @@ public class DataframeColumnTest {
 		sum = 0;
 		int len = r.nextInt()%100 +1;
 		for(int i=0; i<len; i++){
-			tmp = r.nextDouble();
+			tmp = r.nextDouble()*100;
 			sum += tmp;
 			l.add(tmp);
 		}
