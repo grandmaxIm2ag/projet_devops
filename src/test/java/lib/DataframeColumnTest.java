@@ -7,8 +7,7 @@ package lib;
 
 import java.util.ArrayList;
 import main.java.lib.DataframeColumn;
-import main.java.exceptions.EmptyException;
-import main.java.exceptions.NotNumberColumnException;
+import main.java.exceptions.*;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -146,12 +145,12 @@ public class DataframeColumnTest {
 	 * Test of getMin with correct data
 	 */
     @Test
-    public void testMinValue() {
+    public void testMinValue() throws Exception{
 		ArrayList<Double> l = new ArrayList<Double>();
 		double min, tmp;
 		Random r = new Random();
 		min = r.nextDouble();
-		int len = r.nextInt();
+		int len = r.nextInt() % 100 +1;
 		l.add(min);
 		for(int i=0; i<len; i++){
 			tmp = r.nextDouble();
@@ -164,35 +163,15 @@ public class DataframeColumnTest {
     }
 
 	/**
-	 * Test of getMin with empty column
-	 */
-    @Test(expected=EmptyException.class)
-    public void testMinValueEmpty() {
-		ArrayList<Double> l = new ArrayList<Double>();
-		DataframeColumn<Double> df = new DataframeColumn<Double>("test", l);
-		df.getMin();
-	}
-
-	/**
-	 * Test of getMin with incorrect data
-	 */
-    @Test(expected=NotNumberColumnException.class)
-    public void testMinValueString() {
-		ArrayList<String> l = new ArrayList<String>();
-		DataframeColumn<String> df = new DataframeColumn<String>("test", l);
-		df.getMin();
-	}
-
-	/**
 	 * Test of getMax with correct data
 	 */
 	@Test
-    public void testMaxValue() {
+    public void testMaxValue() throws Exception{
 		ArrayList<Double> l = new ArrayList<Double>();
 		double max, tmp;
 		Random r = new Random();
 		max = r.nextDouble();
-		int len = r.nextInt();
+		int len = r.nextInt() % 100 +1;
 		l.add(max);
 		for(int i=0; i<len; i++){
 			tmp = r.nextDouble();
@@ -205,35 +184,15 @@ public class DataframeColumnTest {
     }
 
 	/**
-	 * Test of getMin with empty column
-	 */
-    @Test(expected=EmptyException.class)
-    public void testMaxValueEmpty() {
-		ArrayList<Double> l = new ArrayList<Double>();
-		DataframeColumn<Double> df = new DataframeColumn<Double>("test", l);
-		df.getMax();
-	}
-
-	/**
-	 * Test of getMin with incorrect data
-	 */
-    @Test(expected=NotNumberColumnException.class)
-    public void testMaxValueString() {
-		ArrayList<String> l = new ArrayList<String>();
-		DataframeColumn<String> df = new DataframeColumn<String>("test", l);
-		df.getMax();
-	}
-	
-	/**
 	 * Test of getMean with correct data
 	 */
 	@Test
-    public void testMeanValue() {
+    public void testMeanValue() throws Exception{
 		ArrayList<Double> l = new ArrayList<Double>();
 		double mean, tmp, sum;
 		Random r = new Random();
 		sum = 0;
-		int len = r.nextInt()+1;
+		int len = r.nextInt()%100 +1;
 		for(int i=0; i<len; i++){
 			tmp = r.nextDouble();
 			sum += tmp;
@@ -241,27 +200,8 @@ public class DataframeColumnTest {
 		}
 		mean = (double) sum / len;
 		DataframeColumn<Double> df = new DataframeColumn<Double>("test", l);
-		assertEquals(mean, df.getMean());
+		System.out.println(mean);
+		assertEquals(mean, df.getMean(), 0.001);
     }
-
-	/**
-	 * Test of getMin with empty column
-	 */
-    @Test(expected=EmptyException.class)
-    public void testMeanValueEmpty() {
-		ArrayList<Double> l = new ArrayList<Double>();
-		DataframeColumn<Double> df = new DataframeColumn<Double>("test", l);
-		df.getMean();
-	}
-
-	/**
-	 * Test of getMin with incorrect data
-	 */
-    @Test(expected=NotNumberColumnException.class)
-    public void testMeanValueString() {
-		ArrayList<String> l = new ArrayList<String>();
-		DataframeColumn<String> df = new DataframeColumn<String>("test", l);
-		df.getMean();
-	}
 
 }
