@@ -1,5 +1,4 @@
-package exceptions;
-
 /**
  * Package for Exception
  */
+package exceptions;

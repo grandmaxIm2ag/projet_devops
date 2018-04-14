@@ -1,5 +1,4 @@
-package lib;
-
 /**
  * Package for lib
  */
+package lib;

@@ -1,3 +1,4 @@
+mvn install jacoco:report
 # Projet DevOps
 
 ## TODO :

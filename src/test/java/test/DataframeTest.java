@@ -328,17 +328,16 @@ public class DataframeTest {
         assert (instance.equals(instance2));
     }
 
-    /**
+    /*
      * Test of subDataframeFromColumns method, of class Dataframe.
      */
-    @Test
     public void testConstructor2() {
-        String pathtocsv = "/home/d/ducruyy/DevOps/projet_devops/csvtest/small.csv";
+        String pathtocsv = "csvtest/small.csv";
         try {
             Dataframe instance = new Dataframe(pathtocsv);
             Dataframe instance2 = new Dataframe(pathtocsv);
-            assert (instance != null);
-            assert (instance.equals(instance2));
+            assertTrue (instance != null);
+            assertTrue (instance.equals(instance2));
         } catch (IOException ex) {
             fail("Exception got thrown, so test can't be asserted => " + ex.getMessage() + ex.getLocalizedMessage());
         }

@@ -5,7 +5,10 @@
  */
 package test;
 
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.List;
+
 import lib.DataframeColumn;
 import exceptions.*;
 import org.junit.After;
@@ -17,30 +20,49 @@ import static org.junit.Assert.*;
 import java.util.Random;
 
 /**
- *
- * @author ducruyy
+ * Test for DataFrameColumn
+ * @author Ducruy Yann,Marco Florian,Grand Maxence
  */
 public class DataframeColumnTest {
 
+	/**
+	 * 
+	 */
     public DataframeColumnTest() {
     }
 
+    /**
+     * 
+     */
     @BeforeClass
     public static void setUpClass() {
     }
 
+    /**
+     * 
+     */
     @AfterClass
     public static void tearDownClass() {
     }
 
+    /**
+     * 
+     */
     @Before
     public void setUp() {
     }
 
+    /**
+     * 
+     */
     @After
     public void tearDown() {
     }
 
+    /**
+     * 
+     * @return New column
+     */
     private DataframeColumn makeupColumn() {
         String label = "label1";
         ArrayList<Integer> arr = new ArrayList<>();
@@ -149,7 +171,7 @@ public class DataframeColumnTest {
         ArrayList<Double> l = new ArrayList<Double>();
         double min, tmp;
         Random r = new Random();
-        min = r.nextDouble();
+        min = r.nextDouble()*101;
         int len = Math.abs(r.nextInt() % 100 + 1);
         l.add(min);
         for (int i = 0; i < len; i++) {
@@ -170,9 +192,10 @@ public class DataframeColumnTest {
     public void testMaxValue() throws Exception {
         ArrayList<Double> l = new ArrayList<Double>();
         double max, tmp;
-        Random r = new Random();
-        max = r.nextDouble();
-        int len = Math.abs(r.nextInt() % 100 + 1);
+        Random r = new Random(System.currentTimeMillis());
+        max = r.nextDouble()*99;
+        int len = Math.abs((r.nextInt() % 100) + 1);
+        System.out.println(len);
         l.add(max);
         for (int i = 0; i < len; i++) {
             tmp = r.nextDouble() * 100;
@@ -183,6 +206,72 @@ public class DataframeColumnTest {
         }
         DataframeColumn<Double> df = new DataframeColumn<Double>("test", l);
         assertEquals(max, df.getMax());
+    }
+    
+    /**
+     * Test of getMax with empty column
+     */
+    @Test(expected=exceptions.EmptyException.class)
+    public void testMaxValueEmpty() throws Exception {
+        ArrayList<Double> l = new ArrayList<Double>();
+        DataframeColumn<Double> df = new DataframeColumn<Double>("test", l);
+        df.getMax();
+    }
+    
+    /**
+     * Test of getMin with empty column
+     */
+    @Test(expected=exceptions.EmptyException.class)
+    public void testMinValueEmpty() throws Exception {
+        ArrayList<Double> l = new ArrayList<Double>();
+        DataframeColumn<Double> df = new DataframeColumn<Double>("test", l);
+        df.getMin();
+    }
+    
+    /**
+     * Test of getMean with empty column
+     */
+    @Test(expected=exceptions.EmptyException.class)
+    public void testMeanValueEmpty() throws Exception {
+        ArrayList<Double> l = new ArrayList<Double>();
+        DataframeColumn<Double> df = new DataframeColumn<Double>("test", l);
+        df.getMean();
+    }
+    
+    /**
+     * Test of getMin with incorrect data
+     */
+    @Test(expected=exceptions.NotNumberColumnException.class)
+    public void testMinValueIncorect() throws Exception {
+        ArrayList<Boolean> l = new ArrayList<Boolean>();
+        l.add(true);
+        l.add(false);
+        DataframeColumn<Boolean> df = new DataframeColumn<Boolean>("test", l);
+        df.getMin();
+    }
+    
+    /**
+     * Test of getMax with incorrect data
+     */
+    @Test(expected=exceptions.NotNumberColumnException.class)
+    public void testMaxValueIncorect() throws Exception {
+        ArrayList<Boolean> l = new ArrayList<Boolean>();
+        l.add(true);
+        l.add(false);
+        DataframeColumn<Boolean> df = new DataframeColumn<Boolean>("test", l);
+        df.getMax();
+    }
+    
+    /**
+     * Test of getMean with incorrect data
+     */
+    @Test(expected=exceptions.NotNumberColumnException.class)
+    public void testMeanValueIncorect() throws Exception {
+        ArrayList<Boolean> l = new ArrayList<Boolean>();
+        l.add(true);
+        l.add(false);
+        DataframeColumn<Boolean> df = new DataframeColumn<Boolean>("test", l);
+        df.getMean();
     }
 
     /**
@@ -206,7 +295,10 @@ public class DataframeColumnTest {
         assertEquals(mean, df.getMean(), 0.001);
     }
 
-    
+    /**
+     * Test HashCode
+     */
+    @Test
     public void hashtest() {
         DataframeColumn instance = new DataframeColumn();
         DataframeColumn makeup = makeupColumn();
@@ -216,33 +308,69 @@ public class DataframeColumnTest {
         assertEquals(a,b);
     }
     
+    /**
+     * Test equals
+     */
+    @Test
     public void equaltest() {
-        DataframeColumn instance = new DataframeColumn();
-        DataframeColumn makeup = makeupColumn();
+        DataframeColumn<Integer> instance = new DataframeColumn<Integer>();
+        DataframeColumn<Integer> makeup = makeupColumn();
         instance.setColumnContents(makeup.getColumnContents());
         boolean a = instance.equals(instance);
         assertEquals(a,true);
+        instance.setLabel("c1");
+        makeup.setLabel("c2");
         
+        assertFalse(instance.equals(makeup));
+        makeup.setLabel("c1");
+        ArrayList<Integer> l1 = new ArrayList<Integer>();
+        l1.add(5);
+        instance.setColumnContents(l1);
+        assertFalse(instance.equals(makeup));
+        ArrayList<Integer> l2 = new ArrayList<Integer>();
+        l2.add(5);
+        makeup.setColumnContents(l2);
+        assertEquals(instance, makeup);
+        l2.add(6);
+        l1.add(7);
+        instance.setColumnContents(l1);
+        makeup.setColumnContents(l2);
+        assertFalse(instance.equals(makeup));
+        assertFalse(instance.equals(null));
+        assertFalse(instance.equals(new String("Un erreur")));
     }
     
+    /**
+     * test isnumber
+     */
+    @Test
     public void isnumber() {
-        DataframeColumn data = new DataframeColumn();
-        boolean st = data.isNumber ("5");
-         assertEquals(st,true);
-        boolean st3 = data.isNumber (2);
-         assertEquals(st3,true);
-        boolean st4 = data.isNumber (3.5);
-         assertEquals(st4,true);
-        boolean st5 = data.isNumber (Number.class);
-        assertEquals(st5,false);
-        boolean sf = data.isNumber ("aa");
-        assertEquals(sf,false);
-        boolean d = data.isNumber(0.1);
-        assertEquals(d,true);
-        boolean b = data.isNumber(true);
-        assertEquals(b,false);
-        
-        
-        
+        DataframeColumn<Object> data = new DataframeColumn<Object>();
+        assertTrue(data.isNumber ("5"));
+        assertTrue(data.isNumber (2));
+        assertTrue(data.isNumber (3.5));
+        assertFalse(data.isNumber (Number.class));
+        assertFalse(data.isNumber ("aa"));
+        assertTrue(data.isNumber(0.1));
+        assertFalse(data.isNumber(true));
+    }
+    
+    /**
+     * test getNumbner
+     */
+    @Test(expected=ParseException.class)
+    public void testGetNumber() throws Exception{
+    	DataframeColumn<Object> data = new DataframeColumn<Object>();
+    	assertEquals(5.0, data.getNumber(5.0));
+    	assertEquals((long)5, data.getNumber("5"));
+    	data.getNumber("chien");
+    }
+    /**
+     * Test constructor 3
+     */
+    @Test
+    public void testConstructor3()  {
+        DataframeColumn<Object> data = new DataframeColumn<Object>("un label");
+        assertEquals("un label", data.getLabel());
     }
 }

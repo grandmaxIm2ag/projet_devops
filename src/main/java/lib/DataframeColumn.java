@@ -9,6 +9,8 @@ import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Objects;
+
+import exceptions.EmptyException;
 import exceptions.NotNumberColumnException;
 
 /**
@@ -91,23 +93,21 @@ public class DataframeColumn<E> {
      * Calculate mean of a column
      * @return double of column's mean
      * @throws NotNumberColumnException
+     * @throws EmptyException 
      */
-    public double getMean() throws NotNumberColumnException {
+    public double getMean() throws NotNumberColumnException, EmptyException {
+    	if(columnContents.size() == 0)
+    		throw new EmptyException("Empty Column");
         double Mean = 0.0;
-        try {
-            for (E elem : columnContents) {
-                try {
-                    Mean += (double) getNumber(elem);
-                } catch (ParseException e) {
-                    throw new NotNumberColumnException("NaN Mean");
-                }
+        for (E elem : columnContents) {
+            try {
+                Mean += (double) getNumber(elem);
+            } catch (ParseException e) {
+                throw new NotNumberColumnException("NaN Mean");
             }
-
-            Mean /= columnContents.size();
-        } catch (NumberFormatException e) {
-            Mean = 0.0;
         }
 
+        Mean /= columnContents.size();
         return Mean;
     }
 
@@ -115,19 +115,24 @@ public class DataframeColumn<E> {
      * Get minimum value of a column
      * @return Minimum element of column
      * @throws ParseException
+     * @throws NotNumberColumnException 
+     * @throws EmptyException 
      */
-    public Number getMin() throws ParseException {
+    public Number getMin() throws NotNumberColumnException, EmptyException {
+    	if(columnContents.size() == 0)
+    		throw new EmptyException("Empty Column");
         Number Min;
         try {
             Min = getNumber(columnContents.get(0));
 
             for (E elem : columnContents) {
                 if (Min.doubleValue() > getNumber(elem).doubleValue()) {
+                	
                     Min = getNumber(elem);
                 }
             }
-        } catch (NumberFormatException e) {
-            Min = 0.0;
+        }catch (ParseException e) {
+            throw new NotNumberColumnException("Not A Number Volumn Expception");
         }
 
         return Min;
@@ -136,9 +141,12 @@ public class DataframeColumn<E> {
     /**
      * Get Maximum Value of Column
      * @return Maximum element of column
+     * @throws EmptyException 
      * @throws ParseException
      */
-    public Number getMax() throws ParseException {
+    public Number getMax() throws NotNumberColumnException, EmptyException {
+    	if(columnContents.size() == 0)
+    		throw new EmptyException("Empty Column");
         Number Max;
         try {
             Max = getNumber(columnContents.get(0));
@@ -148,8 +156,8 @@ public class DataframeColumn<E> {
                     Max = getNumber(elem);
                 }
             }
-        } catch (NumberFormatException e) {
-            Max = 0.0;
+        }catch (ParseException e) {
+            throw new NotNumberColumnException("Not A Number Volumn Expception");
         }
 
         return Max;
@@ -198,19 +206,8 @@ public class DataframeColumn<E> {
     }
 
     /**
-     * Function that tests if all elements of a column are a number 
-     * @param col a column
-     * @return True if all elements are numbers, False otherwise
+     * @return the hashcode
      */
-    public boolean isColumnNumber(ArrayList<E> col) {
-        for (E elem : col) {
-            if (!isNumber(elem)) {
-                return false;
-            }
-        }
-        return true;
-    }
-
     @Override
     public int hashCode() {
         int hash = 7;
@@ -219,8 +216,13 @@ public class DataframeColumn<E> {
         return hash;
     }
 
+    /**
+     * @param obj an object
+     * @return verify the equality
+     */
     @Override
     public boolean equals(Object obj) {
+    	System.out.println("! "+obj+(obj == null));
         if (obj == null) {
             return false;
         }
@@ -231,10 +233,13 @@ public class DataframeColumn<E> {
         if (!Objects.equals(this.Label, other.Label)) {
             return false;
         }
-        if (!Objects.equals(this.columnContents, other.columnContents)) {
-            return false;
-        }
-        return true;
+        if(this.columnContents.size() != other.columnContents.size())
+        	return false;
+        
+        boolean b = true;
+        for(int i=0; i<this.columnContents.size(); i++)
+        	b &= columnContents.get(i) == other.columnContents.get(i);
+        return b;
     }
 
 }
