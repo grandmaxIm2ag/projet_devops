@@ -1,3 +1,3 @@
 - [Ducruy Yann](mailto:yann.ducruy@etu.univ-grenoble-alpes.fr)
-- [Marco Florian](florian.marco@etu.univ-grenoble-alpes.fr)
-- [Grand Maxence](maxence.grand@etu.univ-grenoble-alpes.fr)
+- [Marco Florian](mailto:florian.marco@etu.univ-grenoble-alpes.fr)
+- [Grand Maxence](mailto:maxence.grand@etu.univ-grenoble-alpes.fr)
