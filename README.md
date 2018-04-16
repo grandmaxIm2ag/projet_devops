@@ -1,4 +1,4 @@
-mvn install jacoco:report
+
 # Projet DevOps
 
 ## TODO :
@@ -61,11 +61,13 @@ Travis CI pour l'intégration continue
 
 ## Code coverage et Javadoc
 
-	mvn install
+    mvn install
     mvn jacoco:report
     mvn javadoc:javadoc
     mvn javadoc:test-javadoc
     mvn site
+
+La documentation du code ainsi que le raport de couverture de code se trouve dans target/site 
 
 ## Feedback
 
