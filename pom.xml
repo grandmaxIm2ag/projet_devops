@@ -6,7 +6,10 @@
   <artifactId>projet_devops</artifactId>
   <packaging>jar</packaging>
   <name>projet_devops</name>
-  <url>http://maven.apache.org</url>
+  <description> Implantation d'une bibliothèque de gstion du  type
+  Dataframe en java
+  </description>
+  <url>https://github.com/grandmaxIm2ag/projet_devops</url>
 
   <properties>
     <java.version>1.8</java.version>
@@ -24,6 +27,28 @@
     </dependency>
   </dependencies>
 
+  <developers>
+    <developer>
+      <id>Yann_Ducruy</id>
+      <name>Ducruy Yann</name>
+      <email>yann.ducruy@etu.univ-grenoble.fr</email>
+    </developer>
+    <developer>
+      <id>Maxence_Grand</id>
+      <name>Grand Maxencce</name>
+      <email>maxence.grand@etu.univ-grenoble.fr</email>
+    </developer>
+    <developer>
+      <id>Florian_Marco</id>
+      <name>Marco Florian</name>
+      <email>florian.marco@etu.univ-grenoble.fr</email>
+    </developer>
+  </developers>
+
+  <ciManagement>
+    <system>Travis CI</system>
+    <url>https://travis-ci.org/mojohaus/siteskinner-maven-plugin</url>
+  </ciManagement>
   
   <build>
     <plugins>
@@ -68,10 +93,10 @@
               <goal>check</goal>
             </goals>
             <configuration>
-              <rules><!-- implementation is needed only for Maven 2 -->
+              <rules>
                 <rule implementation="org.jacoco.maven.RuleConfiguration">
                   <element>BUNDLE</element>
-                  <limits><!-- implementation is needed only for Maven 2 -->
+                  <limits>
                     <limit implementation="org.jacoco.report.check.Limit">
                       <counter>COMPLEXITY</counter>
                       <value>COVEREDRATIO</value>

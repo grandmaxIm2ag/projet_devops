@@ -77,7 +77,6 @@ public class DataframeColumnTest {
      */
     @Test
     public void testGetLabel() {
-        System.out.println("getLabel");
         DataframeColumn instance = new DataframeColumn();
         String expResult = "";
         String result = instance.getLabel();
@@ -89,7 +88,6 @@ public class DataframeColumnTest {
      */
     @Test
     public void testGetLabelReal() {
-        System.out.println("getLabel");
         DataframeColumn instance = makeupColumn();
         String expResult = "label1";
         String result = instance.getLabel();
@@ -101,7 +99,6 @@ public class DataframeColumnTest {
      */
     @Test
     public void testSetLabelReal() {
-        System.out.println("setLabel");
         String Label = "label2";
         DataframeColumn instance = makeupColumn();
         instance.setLabel(Label);
@@ -113,7 +110,6 @@ public class DataframeColumnTest {
      */
     @Test
     public void testGetColumnContents() {
-        System.out.println("getColumnContents");
         DataframeColumn instance = new DataframeColumn();
         ArrayList result = instance.getColumnContents();
         assertEquals(0, result.size());
@@ -125,7 +121,6 @@ public class DataframeColumnTest {
      */
     @Test
     public void testGetColumnContentsReal() {
-        System.out.println("getColumnContents");
         DataframeColumn instance = makeupColumn();
         ArrayList result = instance.getColumnContents();
         assertEquals(3, result.size());
@@ -139,7 +134,6 @@ public class DataframeColumnTest {
      */
     @Test
     public void testSetColumnContents() {
-        System.out.println("setColumnContents");
         DataframeColumn instance = new DataframeColumn();
         instance.setColumnContents(null);
     }
@@ -151,7 +145,6 @@ public class DataframeColumnTest {
      */
     @Test
     public void testSetColumnContentsReal() {
-        System.out.println("setColumnContents");
         DataframeColumn instance = new DataframeColumn();
         DataframeColumn makeup = makeupColumn();
         instance.setColumnContents(makeup.getColumnContents());
@@ -165,6 +158,7 @@ public class DataframeColumnTest {
 
     /**
      * Test of getMin with correct data
+     * @throws Exception Exception for statistical function
      */
     @Test
     public void testMinValue() throws Exception {
@@ -187,6 +181,7 @@ public class DataframeColumnTest {
 
     /**
      * Test of getMax with correct data
+     * @throws Exception Exception for statistical function
      */
     @Test
     public void testMaxValue() throws Exception {
@@ -195,7 +190,6 @@ public class DataframeColumnTest {
         Random r = new Random(System.currentTimeMillis());
         max = r.nextDouble()*99;
         int len = Math.abs((r.nextInt() % 100) + 1);
-        System.out.println(len);
         l.add(max);
         for (int i = 0; i < len; i++) {
             tmp = r.nextDouble() * 100;
@@ -210,6 +204,7 @@ public class DataframeColumnTest {
     
     /**
      * Test of getMax with empty column
+     * @throws Exception Exception for statistical function
      */
     @Test(expected=exceptions.EmptyException.class)
     public void testMaxValueEmpty() throws Exception {
@@ -220,6 +215,7 @@ public class DataframeColumnTest {
     
     /**
      * Test of getMin with empty column
+     * @throws Exception Exception for statistical function
      */
     @Test(expected=exceptions.EmptyException.class)
     public void testMinValueEmpty() throws Exception {
@@ -230,6 +226,7 @@ public class DataframeColumnTest {
     
     /**
      * Test of getMean with empty column
+     * @throws Exception Exception for statistical function
      */
     @Test(expected=exceptions.EmptyException.class)
     public void testMeanValueEmpty() throws Exception {
@@ -240,6 +237,7 @@ public class DataframeColumnTest {
     
     /**
      * Test of getMin with incorrect data
+     * @throws Exception Exception for statistical function
      */
     @Test(expected=exceptions.NotNumberColumnException.class)
     public void testMinValueIncorect() throws Exception {
@@ -252,6 +250,7 @@ public class DataframeColumnTest {
     
     /**
      * Test of getMax with incorrect data
+     * @throws Exception Exception for statistical function
      */
     @Test(expected=exceptions.NotNumberColumnException.class)
     public void testMaxValueIncorect() throws Exception {
@@ -264,6 +263,7 @@ public class DataframeColumnTest {
     
     /**
      * Test of getMean with incorrect data
+     * @throws Exception Exception for statistical function
      */
     @Test(expected=exceptions.NotNumberColumnException.class)
     public void testMeanValueIncorect() throws Exception {
@@ -276,6 +276,7 @@ public class DataframeColumnTest {
 
     /**
      * Test of getMean with correct data
+     * @throws Exception Exception for statistical function
      */
     @Test
     public void testMeanValue() throws Exception {
@@ -291,8 +292,7 @@ public class DataframeColumnTest {
         }
         mean = (double) sum / len;
         DataframeColumn<Double> df = new DataframeColumn<Double>("test", l);
-        System.out.println(mean);
-        assertEquals(mean, df.getMean(), 0.001);
+         assertEquals(mean, df.getMean(), 0.001);
     }
 
     /**
@@ -357,6 +357,7 @@ public class DataframeColumnTest {
     
     /**
      * test getNumbner
+     * @throws Exception Exception for statistical function
      */
     @Test(expected=ParseException.class)
     public void testGetNumber() throws Exception{

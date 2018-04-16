@@ -14,6 +14,9 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import exceptions.BadIndexException;
+
 import static org.junit.Assert.*;
 
 /**
@@ -67,7 +70,6 @@ public class DataframeTest {
      */
     @Test
     public void testGetColumns() {
-        System.out.println("getColumns");
         Dataframe instance = new Dataframe();
         ArrayList<DataframeColumn> result = instance.getColumns();
         assertEquals(0, result.size());
@@ -78,7 +80,6 @@ public class DataframeTest {
      */
     @Test
     public void testGetColumnsReal() {
-        System.out.println("getColumns");
         Dataframe instance = makeupDataframe();
         ArrayList<DataframeColumn> result = instance.getColumns();
         assertEquals(2, result.size());
@@ -89,7 +90,6 @@ public class DataframeTest {
      */
     @Test
     public void testSetColumnsReal() {
-        System.out.println("setColumns");
         Dataframe d = makeupDataframe();
         ArrayList<DataframeColumn> columns = d.getColumns();
         Dataframe instance = new Dataframe();
@@ -103,7 +103,6 @@ public class DataframeTest {
      */
     @Test
     public void testAddColumn_DataframeColumn() {
-        System.out.println("addColumn");
         DataframeColumn newcolumn = new DataframeColumn();
         Dataframe instance = new Dataframe();
         instance.addColumn(newcolumn);
@@ -115,7 +114,6 @@ public class DataframeTest {
      */
     @Test
     public void testAddColumn_DataframeColumnReal() {
-        System.out.println("addColumn");
         Dataframe d = makeupDataframe();
         DataframeColumn newcolumn = d.getColumns().get(0);
         Dataframe instance = new Dataframe();
@@ -129,7 +127,6 @@ public class DataframeTest {
      */
     @Test
     public void testAddColumn_DataframeColumn_int() {
-        System.out.println("addColumn");
         DataframeColumn newcolumn = new DataframeColumn();
         int columnindex = 0;
         Dataframe instance = new Dataframe();
@@ -142,7 +139,6 @@ public class DataframeTest {
      */
     @Test
     public void testAddColumn_DataframeColumn_intReal() {
-        System.out.println("addColumn");
         int columnindex = 0;
         Dataframe d = makeupDataframe();
         DataframeColumn newcolumn = d.getColumns().get(0);
@@ -158,51 +154,51 @@ public class DataframeTest {
 
     /**
      * Test of printRow method, of class Dataframe.
+     * @throws BadIndexException exception for print
      */
     @Test
-    public void testPrintRow() {
-        System.out.println("printRow");
+    public void testPrintRow() throws BadIndexException {
         int index = 0;
         Dataframe instance = new Dataframe();
+        instance.addColumn(new DataframeColumn());
         instance.printRow(index);
     }
     /**
      * Test of printRow method, of class Dataframe.
+     * @throws BadIndexException exception for print 
      */
     @Test
-    public void testPrintRowReal() {
-        System.out.println("printRow");
+    public void testPrintRowReal() throws BadIndexException {
         int index = 0;
         Dataframe instance = makeupDataframe();
         instance.printRow(index);
     }
     /**
      * Test of printRow method, of class Dataframe.
+     * @throws BadIndexException exception for print 
      */
     @Test
-    public void testPrintRowReal2() {
-        System.out.println("printRow");
+    public void testPrintRowReal2() throws BadIndexException {
         Dataframe instance = makeupDataframe();
         instance.printRow(0);
         instance.printRow(1);
-        instance.printRow(2);
     }
     /**
      * Test of printRow method, of class Dataframe.
+     * @throws BadIndexException exception for print 
      */
-    @Test
-    public void testPrintRowLessZero() {
-        System.out.println("printRow");
+    @Test(expected=exceptions.BadIndexException.class)
+    public void testPrintRowLessZero() throws BadIndexException {
         int index = -1;
         Dataframe instance = makeupDataframe();
         instance.printRow(index);
     }
     /**
      * Test of printRow method, of class Dataframe.
+     * @throws BadIndexException exception for print 
      */
-    @Test
-    public void testPrintMoreThanMax() {
-        System.out.println("printRow");
+    @Test(expected=exceptions.BadIndexException.class)
+    public void testPrintMoreThanMax() throws BadIndexException {
         int index = 8;
         Dataframe instance = makeupDataframe();
         instance.printRow(index);
@@ -210,61 +206,85 @@ public class DataframeTest {
 
     /**
      * Test of printFirstRows method, of class Dataframe.
+     * @throws BadIndexException exception for print 
      */
     @Test
-    public void testPrintFirstRows_int() {
-        System.out.println("printFirstRows");
-        int numberOfRow = 2;
+    public void testPrintFirstRows_int() throws BadIndexException {
+        int numberOfRow = 0;
         Dataframe instance = new Dataframe();
         instance.printFirstRows(numberOfRow);
     }
 
     /**
      * Test of printFirstRows method, of class Dataframe.
+     * @throws BadIndexException exception for print 
      */
     @Test
-    public void testPrintFirstRows_0args() {
-        System.out.println("printFirstRows");
+    public void testPrintFirstRows_0args() throws BadIndexException {
         Dataframe instance = new Dataframe();
+        for(int i=0; i<10; i++) {
+        	
+        	ArrayList<Integer> l = new ArrayList<>();
+        	for(int j =0; j<10; j++)
+        		l.add(j);
+        	DataframeColumn<Integer> dd = new DataframeColumn<>("c"+i, l);
+        	instance.addColumn(dd);
+        }
         instance.printFirstRows();
     }
 
     /**
      * Test of printLastRows method, of class Dataframe.
+     * @throws BadIndexException exception for print 
      */
     @Test
-    public void testPrintLastRows_int() {
-        System.out.println("printLastRows");
+    public void testPrintLastRows_int() throws BadIndexException {
         int numberOfRow = 2;
         Dataframe instance = new Dataframe();
+        for(int i=0; i<10; i++) {
+        	
+        	ArrayList<Integer> l = new ArrayList<>();
+        	for(int j =0; j<10; j++)
+        		l.add(j);
+        	DataframeColumn<Integer> dd = new DataframeColumn<>("c"+i, l);
+        	instance.addColumn(dd);
+        }
         instance.printLastRows(numberOfRow);
     }
 
     /**
      * Test of printLastRows method, of class Dataframe.
+     * @throws BadIndexException exception for print 
      */
     @Test
-    public void testPrintLastRows_0args() {
-        System.out.println("printLastRows");
+    public void testPrintLastRows_0args() throws BadIndexException {
         Dataframe instance = new Dataframe();
+        for(int i=0; i<10; i++) {
+        	
+        	ArrayList<Integer> l = new ArrayList<>();
+        	for(int j =0; j<10; j++)
+        		l.add(j);
+        	DataframeColumn<Integer> dd = new DataframeColumn<>("c"+i, l);
+        	instance.addColumn(dd);
+        }
         instance.printLastRows();
     }
 
     /**
      * Test of printAllRows method, of class Dataframe.
+     * @throws BadIndexException exception for print 
      */
     @Test
-    public void testPrintAllRows() {
-        System.out.println("printAllRows");
+    public void testPrintAllRows() throws BadIndexException {
         Dataframe instance = new Dataframe();
         instance.printAllRows();
     }
     /**
      * Test of printAllRows method, of class Dataframe.
+     * @throws BadIndexException exception for print 
      */
     @Test
-    public void testPrintAllRowsReal() {
-        System.out.println("printAllRows");
+    public void testPrintAllRowsReal() throws BadIndexException {
         Dataframe instance = makeupDataframe();
         instance.printAllRows();
     }
@@ -274,7 +294,6 @@ public class DataframeTest {
      */
     @Test
     public void testSubDataframeFromRows() {
-        System.out.println("subDataframeFromRows");
         int[] indexes = new int[0];
         Dataframe instance = new Dataframe();
         Dataframe result = instance.subDataframeFromRows(indexes);
@@ -285,7 +304,6 @@ public class DataframeTest {
      */
     @Test
     public void testSubDataframeFromRowsReal() {
-        System.out.println("subDataframeFromRows");
         int[] indexes = new int[1];
         indexes[0]=1;
         Dataframe instance = makeupDataframe();
@@ -298,7 +316,6 @@ public class DataframeTest {
      */
     @Test
     public void testSubDataframeFromColumns() {
-        System.out.println("subDataframeFromColumns");
         ArrayList<String> labels = new ArrayList<>();
         Dataframe instance = new Dataframe();
         Dataframe result = instance.subDataframeFromColumns(labels);
@@ -309,7 +326,6 @@ public class DataframeTest {
      */
     @Test
     public void testSubDataframeFromColumnsReal() {
-        System.out.println("subDataframeFromColumns");
         ArrayList<String> labels = new ArrayList<>();
         labels.add("column1");
         Dataframe instance = makeupDataframe();
@@ -325,23 +341,18 @@ public class DataframeTest {
         Dataframe instance = new Dataframe();
         Dataframe instance2 = new Dataframe();
 
-        assert (instance.equals(instance2));
+        assertTrue (instance.equals(instance2));
     }
 
     /*
      * Test of subDataframeFromColumns method, of class Dataframe.
      */
-    public void testConstructor2() {
+    @Test
+    public void testConstructor2() throws Exception{
         String pathtocsv = "csvtest/small.csv";
-        try {
-            Dataframe instance = new Dataframe(pathtocsv);
-            Dataframe instance2 = new Dataframe(pathtocsv);
-            assertTrue (instance != null);
-            assertTrue (instance.equals(instance2));
-        } catch (IOException ex) {
-            fail("Exception got thrown, so test can't be asserted => " + ex.getMessage() + ex.getLocalizedMessage());
-        }
-
+        Dataframe instance = new Dataframe(pathtocsv);
+        Dataframe instance2 = new Dataframe(pathtocsv);
+        assertTrue (instance.equals(instance2));
     }
 
     /**
@@ -351,9 +362,7 @@ public class DataframeTest {
     public void testConstructor3() {
         Dataframe instance = makeupDataframe();
         Dataframe instance2 = makeupDataframe();
-
-        assert (instance.equals(instance2));
-
+        assertTrue (instance.equals(instance2));
     }
     /**
      * Test of subDataframeFromColumns method, of class Dataframe.
@@ -364,7 +373,8 @@ public class DataframeTest {
         Dataframe instance = new Dataframe(array);
 
         assertEquals(instance.getColumns().size(),0);
-
+        assertFalse(instance.equals(null));
+        assertFalse(instance.equals(""));
     }
 
     /**
@@ -377,6 +387,53 @@ public class DataframeTest {
 
         assertEquals(hash,instance.hashCode());
 
+    }
+    
+    /**
+     * Test of equals
+     */
+    @Test 
+    public void testEquals( ) {
+    	ArrayList<Integer> l1 = new ArrayList<>();
+    	l1.add(5);
+    	Dataframe d1 = new Dataframe();
+    	d1.addColumn(new DataframeColumn("c1",l1));
+    	Dataframe d2 = new Dataframe();
+    	assertFalse(d1.equals(d2));
+    	d1.addColumn(new DataframeColumn("c2",l1));
+    	d2.addColumn(new DataframeColumn("c1",l1));
+    	assertFalse(d1.equals(d2));
+    }
+    
+    /**
+     * Test printrow
+     * @throws BadIndexException exception for print 
+     */
+    public void printTest() throws BadIndexException {
+    	Dataframe d = makeupDataframe();
+    	d.printAllRows();
+    	d.printFirstRows();
+    	d.printLastRows();
+    }
+    
+    /**
+     * Test printrow exception for first column
+     * @throws BadIndexException exception for print 
+     */
+    @Test(expected=exceptions.BadIndexException.class)
+    public void printTest1() throws BadIndexException {
+    	Dataframe d = makeupDataframe();
+    	d.printFirstRows(Integer.MAX_VALUE);
+    }
+    
+    /**
+     * Test printrow, exception for last
+     * @throws BadIndexException exception for print 
+     */
+    @Test(expected=exceptions.BadIndexException.class)
+    public void printTest2() throws BadIndexException {
+    	Dataframe d = makeupDataframe();
+    	d.printLastRows(Integer.MAX_VALUE);
     }
 
 }

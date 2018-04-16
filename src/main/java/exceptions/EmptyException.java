@@ -14,14 +14,4 @@ public class EmptyException extends Exception {
     public EmptyException(String message) {
         super(message);
     }
-
-    /**
-     * Empty Exception
-     *
-     * @param message String of error message
-     * @param throwable throwable exception
-     */
-    public EmptyException(String message, Throwable throwable) {
-        super(message, throwable);
-    }
 }

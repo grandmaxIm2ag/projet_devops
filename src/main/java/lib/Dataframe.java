@@ -14,13 +14,21 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
+import exceptions.BadIndexException;
+
 /**
  *
  * @author marcof
  */
 public class Dataframe {
 
+	/**
+	 * 
+	 */
     private ArrayList<DataframeColumn> columns;
+    /**
+     * 
+     */
     private int maxColumnSize;
 
     /**
@@ -45,7 +53,7 @@ public class Dataframe {
      * Import the data columns and Data from a CSV file
      *
      * @param csvFilename the filename
-     * @throws java.io.IOException
+     * @throws java.io.IOException problem with file
      */
     public Dataframe(String csvFilename) throws IOException {
         List<String> lines = Files.readAllLines(Paths.get(csvFilename), Charset.defaultCharset());
@@ -61,7 +69,6 @@ public class Dataframe {
 
         for (String line : lines) {
             String[] linez = line.split(",");
-            System.out.println(Arrays.toString(linez));
             for (int i = 0; i < maxColumnSize; i++) {
                 linetocol.get(i).add(linez[i]);
             }
@@ -117,16 +124,18 @@ public class Dataframe {
      * have the function toString()
      *
      * @param index the index of the row
+     * 
+     * @throws BadIndexException negative or too high index
      */
-    public void printRow(int index) {
+    public void printRow(int index) throws BadIndexException{
         if(index<0 || index>maxColumnSize){
-            return;
+            throw new exceptions.BadIndexException("");
         }
         for (DataframeColumn column : columns) {
-            if (column.getColumnContents().size() < index) {
+            if (column.getColumnContents().size() > index) {
                 System.out.println(column.getLabel() + " : " + column.getColumnContents().get(index).toString());
             } else {
-                System.out.println(column.getLabel() + " : out of bounds");
+                System.out.println(column.getLabel() + " : ");
             }
         }
     }
@@ -135,8 +144,9 @@ public class Dataframe {
      * print the numberOfRow first rows
      *
      * @param numberOfRow the number of rows to print
+     * @throws BadIndexException negative or too high index
      */
-    public void printFirstRows(int numberOfRow) {
+    public void printFirstRows(int numberOfRow) throws BadIndexException {
         for (int i = 0; i < numberOfRow; i++) {
             printRow(i);
         }
@@ -144,8 +154,9 @@ public class Dataframe {
 
     /**
      * print the 5 first rows
+     * @throws BadIndexException negative or too high index
      */
-    public void printFirstRows() {
+    public void printFirstRows() throws BadIndexException {
         for (int i = 0; i < 5; i++) {
             printRow(i);
         }
@@ -155,8 +166,9 @@ public class Dataframe {
      * print the last numberOfRow rows
      *
      * @param numberOfRow the number of rows to print
+     * @throws BadIndexException negative or too high index
      */
-    public void printLastRows(int numberOfRow) {
+    public void printLastRows(int numberOfRow) throws BadIndexException {
         for (int i = 0; i < numberOfRow; i++) {
             printRow(this.maxColumnSize - i);
         }
@@ -164,8 +176,9 @@ public class Dataframe {
 
     /**
      * print the last 5 rows
+     * @throws BadIndexException negative or too high index
      */
-    public void printLastRows() {
+    public void printLastRows() throws BadIndexException {
         //TODO : check if not out of bounds ?
         for (int i = 0; i < 5; i++) {
             printRow(this.maxColumnSize - i);
@@ -174,8 +187,9 @@ public class Dataframe {
 
     /**
      * print the rows of the whole dataframe
+     * @throws BadIndexException negative or too high index
      */
-    public void printAllRows() {
+    public void printAllRows() throws BadIndexException {
         for (int i = 0; i < maxColumnSize; i++) {
             printRow(i);
         }
@@ -222,6 +236,9 @@ public class Dataframe {
         return d;
     }
 
+    /**
+     * evaluate the max of columns
+     */
     //Internal function that evaluate the size of the longest column
     private void maxColumnSizeEvaluation() {
         int max = 0;
@@ -233,6 +250,11 @@ public class Dataframe {
         this.maxColumnSize = max;
     }
 
+    /**
+     * hashcode
+     * 
+     * return the hashcode
+     */
     @Override
     public int hashCode() {
         int hash = 7;
@@ -241,6 +263,10 @@ public class Dataframe {
         return hash;
     }
 
+    /**
+     * 
+     * return true if this == obj
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
@@ -250,13 +276,18 @@ public class Dataframe {
             return false;
         }
         final Dataframe other = (Dataframe) obj;
-        if (!Objects.equals(this.columns, other.columns)) {
-            return false;
-        }
         if (this.maxColumnSize != other.maxColumnSize) {
             return false;
         }
-        return true;
+        if (this.columns.size() != other.columns.size()) {
+            return false;
+        }
+        boolean b = true;
+        for(int i=0; i<this.columns.size(); i++) {
+            b &= this.columns.get(i).equals(other.columns.get(i));
+        }
+        
+        return b;
     }
 
 }

@@ -92,8 +92,9 @@ public class DataframeColumn<E> {
     /**
      * Calculate mean of a column
      * @return double of column's mean
-     * @throws NotNumberColumnException
-     * @throws EmptyException 
+     * 
+     * @throws EmptyException mpty column
+     * @throws NotNumberColumnException column type isn't number
      */
     public double getMean() throws NotNumberColumnException, EmptyException {
     	if(columnContents.size() == 0)
@@ -114,9 +115,9 @@ public class DataframeColumn<E> {
     /**
      * Get minimum value of a column
      * @return Minimum element of column
-     * @throws ParseException
-     * @throws NotNumberColumnException 
-     * @throws EmptyException 
+     *
+     * @throws EmptyException empty column
+     * @throws NotNumberColumnException column type isn't number
      */
     public Number getMin() throws NotNumberColumnException, EmptyException {
     	if(columnContents.size() == 0)
@@ -141,8 +142,9 @@ public class DataframeColumn<E> {
     /**
      * Get Maximum Value of Column
      * @return Maximum element of column
-     * @throws EmptyException 
-     * @throws ParseException
+     * 
+     * @throws EmptyException empty column
+     * @throws NotNumberColumnException column type isn't number
      */
     public Number getMax() throws NotNumberColumnException, EmptyException {
     	if(columnContents.size() == 0)
@@ -222,7 +224,6 @@ public class DataframeColumn<E> {
      */
     @Override
     public boolean equals(Object obj) {
-    	System.out.println("! "+obj+(obj == null));
         if (obj == null) {
             return false;
         }
@@ -238,7 +239,7 @@ public class DataframeColumn<E> {
         
         boolean b = true;
         for(int i=0; i<this.columnContents.size(); i++)
-        	b &= columnContents.get(i) == other.columnContents.get(i);
+        	b &= columnContents.get(i).equals(other.columnContents.get(i));
         return b;
     }
 

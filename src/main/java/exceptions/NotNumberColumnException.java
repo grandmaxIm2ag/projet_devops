@@ -16,12 +16,4 @@ public class NotNumberColumnException extends Exception {
         super(message);
     }
 
-    /**
-     *
-     * @param message String of error message
-     * @param throwable Error to throw
-     */
-    public NotNumberColumnException(String message, Throwable throwable) {
-        super(message, throwable);
-    }
 }
